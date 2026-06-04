@@ -71,6 +71,12 @@ const translations = {
         item_desc: "Description",
         onboarding_subtitle: "Become a verified member of the diaspora community.",
         market_search_placeholder: "Search items...",
+        reg_national_id: "National ID Number (Home Country)",
+        reg_passport_no: "Passport Number",
+        reg_emirates_id: "Emirates ID Number",
+        reg_nok_name: "Next of Kin Name",
+        reg_nok_relation: "Relationship",
+        reg_nok_phone: "Next of Kin Phone Number",
         filter_all_categories: "All Categories",
         min_price: "Min Price",
         max_price: "Max Price",
@@ -130,6 +136,12 @@ const translations = {
         item_desc: "الوصف",
         onboarding_title: "انضم إلى أف كود الإمارات",
         onboarding_subtitle: "كن عضواً معتمداً في مجتمع المغتربين.",
+        reg_national_id: "رقم الهوية الوطنية (البلد الأم)",
+        reg_passport_no: "رقم جواز السفر",
+        reg_emirates_id: "رقم الهوية الإماراتية",
+        reg_nok_name: "اسم أقرب الأقرباء",
+        reg_nok_relation: "العلاقة",
+        reg_nok_phone: "رقم هاتف أقرب الأقرباء",
         footer_title: "أف كود الإمارات لتطوير الجالية",
         footer_desc: "تمكين الأفارقة في الإمارات | وحدة ونمو",
         footer_rights: "© 2026 أف كود الإمارات. جميع الحقوق محفوظة."
@@ -292,7 +304,7 @@ window.addEventListener('resize', updateActiveNav);
 /* REAL-TIME JOB SEARCH */
 
 const searchInput = document.getElementById('jobSearch');
-const jobCards = document.querySelectorAll('.job-card');
+const jobCards = document.querySelectorAll('.job-post-card');
 
 if (searchInput) {
     searchInput.addEventListener('input', (e) => {
@@ -305,6 +317,29 @@ if (searchInput) {
         });
     });
 }
+
+/* DIRECTORY SEARCH LOGIC */
+const dirSearchInput = document.getElementById('directorySearch');
+const profFilter = document.getElementById('nationalityFilter');
+
+function filterDirectory() {
+    const query = dirSearchInput.value.toLowerCase();
+    const profession = profFilter.value;
+    const cards = document.querySelectorAll('.worker-card-item');
+
+    cards.forEach(card => {
+        const name = card.querySelector('h3').textContent.toLowerCase();
+        const skills = card.querySelector('.worker-tags').textContent.toLowerCase();
+        const cardProfession = card.dataset.profession;
+
+        const matchesQuery = name.includes(query) || skills.includes(query);
+        const matchesProfession = profession === 'all' || cardProfession === profession;
+        card.classList.toggle('hide', !(matchesQuery && matchesProfession));
+    });
+}
+
+if (dirSearchInput) dirSearchInput.addEventListener('input', filterDirectory);
+if (profFilter) profFilter.addEventListener('change', filterDirectory);
 
 /* APPLICATION MODAL */
 const applicationModalOverlay = document.getElementById('applicationModalOverlay');
@@ -331,22 +366,30 @@ function populateHiringSummary() {
     const name = document.getElementById('clientName').value;
     const email = document.getElementById('clientEmail').value;
     const phone = document.getElementById('clientPhone').value;
+    const nationalId = document.getElementById('nationalId').value;
+    const passportNumber = document.getElementById('passportNumber').value;
+    const emiratesId = document.getElementById('emiratesId').value;
     const nationalitySelect = document.getElementById('preferredNationality');
     const nationality = nationalitySelect ? nationalitySelect.options[nationalitySelect.selectedIndex].text : 'N/A';
     const profession = document.getElementById('memberProfession').value;
     const locationSelect = document.getElementById('serviceLocation');
     const location = locationSelect ? locationSelect.options[locationSelect.selectedIndex].text : 'N/A';
     const emergencyName = document.getElementById('emergencyContactName').value;
+    const emergencyRelation = document.getElementById('emergencyRelation').value;
     const emergencyPhone = document.getElementById('emergencyContactPhone').value;
 
     const data = {
         "Full Name": name,
         "Email": email,
         "Phone": phone,
+        "National ID": nationalId,
+        "Passport No": passportNumber,
+        "Emirates ID": emiratesId,
         "Nationality": nationality,
         "Profession": profession,
         "Residence": location,
-        "Emergency Contact": `${emergencyName} (${emergencyPhone})`
+        "Next of Kin": `${emergencyName} (${emergencyRelation})`,
+        "NOK Contact": emergencyPhone
     };
 
     summaryDiv.innerHTML = `
@@ -382,7 +425,7 @@ function validateHiringStep(n) {
     const inputs = hiringSteps[n].querySelectorAll('input, select, textarea');
     let valid = true;
     inputs.forEach(input => {
-        if (input.hasAttribute('required') && !input.value) {
+        if (!input.checkValidity()) {
             input.style.borderColor = '#ff4d4d';
             valid = false;
         } else {
@@ -447,7 +490,7 @@ function validateApplicationStep(n) {
     const inputs = applicationSteps[n].querySelectorAll('input, select, textarea');
     let valid = true;
     inputs.forEach(input => {
-        if (input.hasAttribute('required') && !input.value) {
+        if (!input.checkValidity()) {
             input.style.borderColor = '#ff4d4d';
             valid = false;
         } else {
@@ -802,6 +845,7 @@ function generateIdCard() {
     const locationSelect = document.getElementById('serviceLocation');
     const location = locationSelect ? locationSelect.options[locationSelect.selectedIndex].text : 'DUBAI';
     const emergencyName = document.getElementById('emergencyContactName').value || "N/A";
+    const emergencyRelation = document.getElementById('emergencyRelation').value || "";
     const emergencyPhone = document.getElementById('emergencyContactPhone').value || "";
     const medicalNotes = document.getElementById('medicalNotes').value || "No critical medical notes provided.";
     const uniqueId = document.getElementById('idMemberId').textContent === 'AF-00000' ? 
@@ -815,7 +859,7 @@ function generateIdCard() {
     document.getElementById('idMemberNat').textContent = nationality.toUpperCase();
     document.getElementById('idMemberLoc').textContent = location.toUpperCase();
     document.getElementById('idMemberSince').textContent = new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase();
-    document.getElementById('idEmergencyContact').textContent = `${emergencyName} (${emergencyPhone})`;
+    document.getElementById('idEmergencyContact').textContent = `${emergencyName} ${emergencyRelation ? '(' + emergencyRelation + ')' : ''} - ${emergencyPhone}`;
     document.getElementById('idMedicalNotes').textContent = medicalNotes;
 
     // Update Signature
@@ -1193,38 +1237,39 @@ if (marketPostForm) {
     marketPostForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
-        const name = document.getElementById('itemName')?.value || "New Item";
+        const name = document.getElementById('itemTitle')?.value || "New Item";
         const price = document.getElementById('itemPrice')?.value || "0";
         const category = document.getElementById('itemCategory')?.value || "General";
         const desc = document.getElementById('itemDesc')?.value || "";
 
-        const marketGrid = document.querySelector('.market-grid');
+        const marketGrid = document.getElementById('marketGrid');
         if (marketGrid) {
             const newItem = document.createElement('div');
-            newItem.className = 'market-item reveal active';
+            newItem.className = 'card reveal market-item active';
             newItem.dataset.title = name;
             newItem.dataset.category = category.toLowerCase();
             newItem.dataset.price = price;
             newItem.innerHTML = `
-                <div class="market-card">
-                    <div class="market-img" style="background: var(--darker); display: flex; align-items: center; justify-content: center; height: 200px;">
-                        <i class="fas fa-box-open fa-3x" style="color: var(--primary);"></i>
-                    </div>
-                    <div class="market-content">
-                        <span class="market-tag">${category}</span>
-                        <h4>${name}</h4>
-                        <p>${desc}</p>
-                        <div class="market-footer">
-                            <span class="market-price">AED ${price}</span>
-                            <button class="whatsapp-share-btn" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></button>
-                        </div>
-                    </div>
+                <div class="badge">AED ${price}</div>
+                <div style="height: 250px; background: rgba(0,217,255,0.05); display: flex; align-items: center; justify-content: center;">
+                     <i class="fas fa-box-open fa-3x" style="color: var(--primary);"></i>
+                </div>
+                <div class="worker-info" style="position: relative; left: 0; bottom: 0; padding: 25px;">
+                    <h3>${name}</h3>
+                    <p>${desc}</p>
+                    <div class="worker-tags"><span>${category}</span><span>Just Now</span></div>
+                    <button class="btn btn-secondary" style="margin-top: 15px; width: 100%;">Contact Seller</button>
+                    <button class="btn whatsapp-share-btn" style="margin-top: 10px; width: 100%; background: #25d366; color: white;"><i class="fab fa-whatsapp"></i> Share</button>
                 </div>
             `;
             marketGrid.prepend(newItem);
         }
 
-        alert("Item submitted for verification and added to the preview!");
+        // Confetti for success
+        if (typeof confetti === 'function') {
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        }
+
         marketModalOverlay.classList.remove('active');
         document.body.style.overflow = '';
         marketPostForm.reset();
@@ -1265,19 +1310,33 @@ if (jobPostForm) {
         e.preventDefault();
         
         const title = document.getElementById('jobTitleInput').value;
+        const company = document.getElementById('companyInput').value;
+        const location = document.getElementById('jobLocation').value;
         const desc = jobDescription.value;
 
-        // Custom Validation
-        if (title.length < 5) {
-            alert("Please provide a more descriptive job title (min 5 characters).");
-            return;
-        }
-        if (desc.length < 20) {
-            alert("Please provide a more detailed description (min 20 characters).");
-            return;
+        const jobsGrid = document.getElementById('jobsGrid');
+        if (jobsGrid) {
+            const newJob = document.createElement('div');
+            newJob.className = 'card reveal job-post-card active';
+            newJob.dataset.title = title;
+            newJob.dataset.company = company;
+            newJob.innerHTML = `
+                <div class="badge">Just Posted</div>
+                <div class="service-content">
+                    <h3>${title}</h3>
+                    <p><strong>Company:</strong> ${company}</p>
+                    <p>${desc}</p>
+                    <div class="worker-tags"><span>Full-time</span><span>${location}</span></div>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 20px;">View Details</button>
+                </div>
+            `;
+            jobsGrid.prepend(newJob);
         }
 
-        alert("Job post submitted for verification! It will appear on the board shortly.");
+        if (typeof confetti === 'function') {
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#00d9ff', '#00ffb3'] });
+        }
+
         jobModalOverlay.classList.remove('active');
         document.body.style.overflow = '';
         jobPostForm.reset();
@@ -1800,6 +1859,25 @@ function init() {
     initSignaturePad();
     updateNationalityCounts();
     initCommunityMap();
+
+    // Emirates ID real-time formatting
+    const emiratesIdField = document.getElementById('emiratesId');
+    if (emiratesIdField) {
+        emiratesIdField.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            let formatted = value.match(/(\d{0,3})(\d{0,4})(\d{0,7})(\d{0,1})/);
+            if (!formatted) return;
+            e.target.value = !formatted[2] ? formatted[1] : formatted[1] + '-' + formatted[2] + (formatted[3] ? '-' + formatted[3] : '') + (formatted[4] ? '-' + formatted[4] : '');
+        });
+    }
+
+    // Passport real-time formatting (force uppercase & alphanumeric)
+    const passportField = document.getElementById('passportNumber');
+    if (passportField) {
+        passportField.addEventListener('input', (e) => {
+            e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+        });
+    }
 
     // Initialize custom selects
     initCustomSelect('packageSelectWrapper', 'packageTrigger', 'packageOptionsList', 'packageMovingHighlight', 'packageType', 'packageTriggerText');

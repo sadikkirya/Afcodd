@@ -304,16 +304,20 @@ Find and network with African professionals across the UAE.
 </p>
 </div>
 
-<div class="filter-container reveal" style="text-align: center; margin-bottom: 40px;">
-    <label for="nationalityFilter" style="display: block; margin-bottom: 10px; color: var(--gray);" data-i18n="filter_label">Search by Profession:</label>
-    <select id="nationalityFilter" class="form-select" style="max-width: 300px; margin: 0 auto; border: 1px solid var(--primary);">
-        <option value="all">All Professions</option>
-        <option value="it">IT & Tech</option>
-        <option value="healthcare">Healthcare</option>
-        <option value="hospitality">Hospitality</option>
-        <option value="legal">Legal</option>
-    </select>
-</div>
+    <div class="filter-container reveal" style="text-align: center; margin-bottom: 40px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+        <div style="flex: 1; min-width: 280px; max-width: 400px;">
+            <input type="text" id="directorySearch" placeholder="Search by name or skills..." class="form-select" style="width: 100%;">
+        </div>
+        <div style="flex: 1; min-width: 200px; max-width: 300px;">
+            <select id="nationalityFilter" class="form-select" style="width: 100%; border: 1px solid var(--primary);">
+                <option value="all">All Professions</option>
+                <option value="it">IT & Tech</option>
+                <option value="healthcare">Healthcare</option>
+                <option value="hospitality">Hospitality</option>
+                <option value="legal">Legal</option>
+            </select>
+        </div>
+    </div>
 
 <div class="grid">
 
@@ -424,11 +428,12 @@ JOBS BOARD (NEW)
     </div>
 
     <div class="filter-container reveal" style="text-align: center; margin-bottom: 30px;">
+        <input type="text" id="jobSearch" placeholder="Search roles or companies..." class="form-select" style="max-width: 300px; display: inline-block; vertical-align: middle; margin-right: 10px;">
         <button class="btn btn-secondary" id="postJobBtn" style="margin-right: 10px;"><i class="fas fa-plus-circle"></i> Post a Job</button>
     </div>
 
-    <div class="grid">
-        <div class="card reveal job-post-card">
+    <div class="grid" id="jobsGrid">
+        <div class="card reveal job-post-card" data-title="Hospitality Supervisor" data-company="Jumeirah Group">
             <div class="badge">New Post</div>
             <div class="service-content">
                 <h3>Hospitality Supervisor</h3>
@@ -762,6 +767,15 @@ HIRING MODAL (FOR EMPLOYERS)
                 <label for="clientPhone">UAE Phone Number</label>
                 <input type="tel" id="clientPhone" name="clientPhone" placeholder="+971 5X XXX XXXX" required>
                 
+                <label for="nationalId" data-i18n="reg_national_id">National ID Number (Home Country)</label>
+                <input type="text" id="nationalId" name="nationalId" placeholder="Enter National ID" required>
+
+                <label for="passportNumber" data-i18n="reg_passport_no">Passport Number</label>
+                <input type="text" id="passportNumber" name="passportNumber" placeholder="Enter Passport Number" pattern="[A-Z0-9]{6,12}" title="Passport number must be 6-12 alphanumeric characters." maxlength="12" required>
+
+                <label for="emiratesId" data-i18n="reg_emirates_id">Emirates ID Number</label>
+                <input type="text" id="emiratesId" name="emiratesId" placeholder="784-XXXX-XXXXXXX-X" pattern="784-[0-9]{4}-[0-9]{7}-[0-9]{1}" title="Emirates ID must follow the format: 784-XXXX-XXXXXXX-X" maxlength="18" required>
+
                 <label>Digital Signature</label>
                 <div class="signature-field">
                     <canvas id="signatureCanvas" width="400" height="100"></canvas>
@@ -818,10 +832,13 @@ HIRING MODAL (FOR EMPLOYERS)
                 <h4 style="color: var(--danger); margin-bottom: 10px;"><i class="fas fa-exclamation-circle"></i> SOS Configuration</h4>
                 <p style="font-size: 12px; color: var(--gray); margin-bottom: 15px;">Setting this up allows AFCODD to assist you faster in case of medical or legal emergencies.</p>
 
-                <label for="emergencyContactName">Emergency Contact Name</label>
-                <input type="text" id="emergencyContactName" name="emergencyContactName" placeholder="Next of Kin Name" required>
+                <label for="emergencyContactName" data-i18n="reg_nok_name">Next of Kin Name</label>
+                <input type="text" id="emergencyContactName" name="emergencyContactName" placeholder="Full Name" required>
 
-                <label for="emergencyContactPhone">Emergency Contact Phone</label>
+                <label for="emergencyRelation" data-i18n="reg_nok_relation">Relationship</label>
+                <input type="text" id="emergencyRelation" name="emergencyRelation" placeholder="e.g. Spouse, Parent, Sibling" required>
+
+                <label for="emergencyContactPhone" data-i18n="reg_nok_phone">Next of Kin Phone Number</label>
                 <input type="tel" id="emergencyContactPhone" name="emergencyContactPhone" placeholder="Phone number" required>
 
                 <label for="medicalNotes">Important Medical Info (Optional)</label>
@@ -1193,6 +1210,10 @@ FLOATING BUTTONS
 
 <div class="ai-chat">
 <i class="fas fa-robot"></i>
+</div>
+
+<div id="backToTop">
+    <i class="fas fa-chevron-up"></i>
 </div>
 
 <!-- Email Simulation Toast -->
