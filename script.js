@@ -66,6 +66,17 @@ const translations = {
         btn_post_item: "Post an Item",
         modal_market_title: "Post to Marketplace",
         item_name: "Item Name",
+        analytics_title: "Community Analytics",
+        analytics_subtitle: "Real-time insights into membership growth and diaspora financial impact.",
+        stat_registered: "Registered Members",
+        stat_active: "Active",
+        stat_inactive: "Inactive",
+        stat_deceased: "Deceased",
+        stat_achievements: "Achievements",
+        stat_contributions: "Contributions (AED)",
+        stat_investments: "Investments (AED)",
+        chart_financial: "Financial Growth Overview",
+        chart_status: "Member Status Distribution",
         item_price: "Price (AED)",
         item_category: "Category",
         item_desc: "Description",
@@ -136,6 +147,17 @@ const translations = {
         item_desc: "الوصف",
         onboarding_title: "انضم إلى أف كود الإمارات",
         onboarding_subtitle: "كن عضواً معتمداً في مجتمع المغتربين.",
+        analytics_title: "إحصائيات المجتمع",
+        analytics_subtitle: "نظرة ثاقبة في الوقت الفعلي على نمو العضوية والأثر المالي للمغتربين.",
+        stat_registered: "الأعضاء المسجلين",
+        stat_active: "نشط",
+        stat_inactive: "غير نشط",
+        stat_deceased: "متوفى",
+        stat_achievements: "الإنجازات",
+        stat_contributions: "المساهمات (درهم)",
+        stat_investments: "الاستثمارات (درهم)",
+        chart_financial: "نظرة عامة على النمو المالي",
+        chart_status: "توزيع حالة الأعضاء",
         reg_national_id: "رقم الهوية الوطنية (البلد الأم)",
         reg_passport_no: "رقم جواز السفر",
         reg_emirates_id: "رقم الهوية الإماراتية",
@@ -1189,6 +1211,74 @@ function initCommunityMap() {
     }
 }
 
+/* ANALYTICS CHARTS INITIALIZATION */
+function initAnalyticsCharts() {
+    const financialCtx = document.getElementById('financialChart');
+    const statusCtx = document.getElementById('statusChart');
+
+    if (financialCtx) {
+        new Chart(financialCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Contributions',
+                    data: [12000, 19000, 15000, 25000, 22000, 30000],
+                    borderColor: '#00d9ff',
+                    backgroundColor: 'rgba(0, 217, 255, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'Investments',
+                    data: [5000, 8000, 12000, 15000, 18000, 24000],
+                    borderColor: '#00ffb3',
+                    backgroundColor: 'rgba(0, 255, 179, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#cbd5e1', font: { family: 'Poppins' } } }
+                },
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#cbd5e1' } },
+                    x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#cbd5e1' } }
+                }
+            }
+        });
+    }
+
+    if (statusCtx) {
+        const lang = mainHtml.getAttribute('lang') || 'en';
+        new Chart(statusCtx, {
+            type: 'doughnut',
+            data: {
+                labels: [translations[lang].stat_active, 'Inactive', translations[lang].stat_deceased],
+                datasets: [{
+                    data: [1150, 78, 12],
+                    backgroundColor: ['#00ffb3', '#f7c35f', '#ff4d4d'],
+                    borderWidth: 0,
+                    hoverOffset: 15
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#cbd5e1', padding: 20, font: { family: 'Poppins' } }
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+    }
+}
+
 /* GLOBAL THEME PERSISTENCE */
 const globalThemeToggle = document.getElementById('globalThemeToggle');
 const savedTheme = localStorage.getItem('site-theme') || 'dark';
@@ -1859,6 +1949,7 @@ function init() {
     initSignaturePad();
     updateNationalityCounts();
     initCommunityMap();
+    initAnalyticsCharts();
 
     // Emirates ID real-time formatting
     const emiratesIdField = document.getElementById('emiratesId');

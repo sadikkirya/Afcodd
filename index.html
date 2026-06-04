@@ -44,6 +44,9 @@
 <!-- CONFETTI -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
+<!-- CHART.JS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
@@ -138,6 +141,56 @@ HERO
 
 </div>
 
+</section>
+
+<!-- Analytics Dashboard -->
+<section id="analytics">
+    <div class="section-title reveal">
+        <h2 data-i18n="analytics_title">Community Analytics</h2>
+        <p data-i18n="analytics_subtitle">Real-time insights into membership growth and diaspora financial impact.</p>
+    </div>
+
+    <div class="stats reveal" style="margin-bottom: 40px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+        <div class="stat">
+            <h2 id="stat-registered">1,240</h2>
+            <p data-i18n="stat_registered">Registered</p>
+        </div>
+        <div class="stat">
+            <h2 id="stat-active" style="color: var(--secondary);">1,150</h2>
+            <p data-i18n="stat_active">Active</p>
+        </div>
+        <div class="stat">
+            <h2 id="stat-deceased" style="color: var(--danger);">12</h2>
+            <p data-i18n="stat_deceased">Deceased</p>
+        </div>
+        <div class="stat">
+            <h2 id="stat-achievements" style="color: var(--gold);">45</h2>
+            <p data-i18n="stat_achievements">Achievements</p>
+        </div>
+        <div class="stat">
+            <h2 id="stat-contributions">145k</h2>
+            <p data-i18n="stat_contributions">Contributions (AED)</p>
+        </div>
+        <div class="stat">
+            <h2 id="stat-investments">82k</h2>
+            <p data-i18n="stat_investments">Investments (AED)</p>
+        </div>
+    </div>
+
+    <div class="grid reveal" style="margin-bottom: 40px;">
+        <div class="card" style="padding: 30px; min-height: 400px; display: flex; flex-direction: column;">
+            <h4 style="margin-bottom: 20px; color: var(--primary);" data-i18n="chart_financial">Financial Growth Overview</h4>
+            <div style="flex: 1; position: relative;">
+                <canvas id="financialChart"></canvas>
+            </div>
+        </div>
+        <div class="card" style="padding: 30px; min-height: 400px; display: flex; flex-direction: column;">
+            <h4 style="margin-bottom: 20px; color: var(--primary);" data-i18n="chart_status">Member Status Distribution</h4>
+            <div style="flex: 1; position: relative;">
+                <canvas id="statusChart"></canvas>
+            </div>
+        </div>
+    </div>
 </section>
 
 <!-- Welfare Hub -->

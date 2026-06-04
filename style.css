@@ -1121,6 +1121,11 @@ FLOATING BUTTONS
     transform: translateY(0);
 }
 
+canvas {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
 @keyframes pulse{
     0%{transform:scale(1);}
     50%{transform:scale(1.1);}
