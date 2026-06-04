@@ -24,6 +24,10 @@
 <!-- FONT AWESOME -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
+<!-- LEAFLET MAPS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <!-- CSS -->
 <link rel="stylesheet" href="style.css">
 
@@ -120,6 +124,10 @@ HERO
 <div class="hero-image reveal">
 
 <img src="assets/meeting.png">
+<div class="image-caption" data-i18n="hero_img_caption">Unity in Diversity - AFCODD 2026</div>
+<div class="image-overlay-info">
+    <p data-i18n="hero_img_details">Empowering the African Diaspora through unity and shared growth in the UAE since 2024.</p>
+</div>
 
 </div>
 
@@ -174,18 +182,24 @@ HERO
     </div>
     <div class="map-container-wrapper reveal">
         <div class="map-sidebar">
-            <div class="map-location-item active">
+            <div class="map-location-item active" data-lat="24.4443" data-lng="54.3970">
                 <i class="fas fa-landmark"></i>
                 <div><strong>Ugandan Embassy</strong><p>Abu Dhabi, UAE</p></div>
             </div>
-            <div class="map-location-item">
+            <div class="map-location-item" data-lat="25.2685" data-lng="55.3090">
                 <i class="fas fa-utensils"></i>
                 <div><strong>African Kitchen</strong><p>Deira, Dubai</p></div>
             </div>
+            <div class="map-location-item" data-lat="25.2586" data-lng="55.3031">
+                <i class="fas fa-landmark"></i>
+                <div><strong>Nigerian Consulate</strong><p>Dubai, UAE</p></div>
+            </div>
+            <div class="map-location-item" data-lat="25.2635" data-lng="55.3340">
+                <i class="fas fa-utensils"></i>
+                <div><strong>Ethiopian Restaurant</strong><p>Dubai, UAE</p></div>
+            </div>
         </div>
-        <div id="map-placeholder" class="map-display">
-            <div class="map-overlay-text">Interactive Map Integration Loading...</div>
-        </div>
+        <div id="map-display" class="map-display"></div>
     </div>
 </section>
 

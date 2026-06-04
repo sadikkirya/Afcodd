@@ -10,11 +10,15 @@ const translations = {
         nav_marketplace: "Marketplace",
         nav_contact: "Careers",
         hero_badge: "Emergency Fund: 85% Funded",
+        hero_img_caption: "Unity in Diversity - AFCODD 2026",
+        hero_img_details: "Empowering the African Diaspora through unity and shared growth in the UAE since 2024.",
         hero_title: "Empowering the <span>African</span> Diaspora in the UAE",
         hero_desc: "Join the largest network of African professionals in the UAE. Access emergency support, legal resources, community welfare funds, and professional networking opportunities.",
         btn_hire: "Join AFCODD",
         btn_apply: "Member SOS",
         top_banner: "🇦🇪 AFCODD UAE | African Community Development Diaspora | Unity & Welfare Portal",
+        map_title: "Community Hubs",
+        map_subtitle: "Locate embassies, African restaurants, and community meeting points near you.",
         services_title: "Community Hub",
         services_subtitle: "Access resources and mutual aid designed for the UAE diaspora.",
         res_title: "Settling in UAE Guide",
@@ -82,11 +86,15 @@ const translations = {
         nav_process: "التقويم",
         nav_contact: "الوظائف",
         hero_badge: "صندوق الرعاية: اكتمل بنسبة 85%",
+        hero_img_caption: "الوحدة في التنوع - أف كود 2026",
+        hero_img_details: "تمكين الجالية الأفريقية من خلال الوحدة والنمو المشترك في الإمارات منذ عام 2024.",
         hero_title: "تمكين الجالية <span>الأفريقية</span> في الإمارات",
         hero_desc: "انضم إلى أكبر شبكة للمهنيين الأفارقة في الإمارات. احصل على الدعم الطارئ، الموارد القانونية، وصناديق الرعاية الاجتماعية.",
         btn_hire: "انضم إلينا",
         btn_apply: "طلب استغاثة",
         top_banner: "🇦🇪 أف كود الإمارات | تطوير الجالية الأفريقية | بوابة الوحدة والرعاية",
+        map_title: "المراكز المجتمعية",
+        map_subtitle: "حدد مواقع السفارات والمطاعم الأفريقية ونقاط التجمع القريبة منك.",
         services_title: "مركز الرعاية",
         services_subtitle: "الوصول إلى الموارد والمساعدات المتبادلة المصممة للجالية في الإمارات.",
         service_res_title: "وحدات الدعم",
@@ -955,6 +963,57 @@ if (currencyToggle) {
 if (aedInput) aedInput.addEventListener('input', convertCurrency);
 if (targetSelect) targetSelect.addEventListener('change', convertCurrency);
 
+/* INTERACTIVE MAP LOGIC */
+function initCommunityMap() {
+    const mapContainer = document.getElementById('map-display');
+    if (!mapContainer) return;
+
+    // Use Leaflet.js to initialize map
+    const map = L.map('map-display').setView([24.8, 54.8], 9);
+
+    // Using CartoDB Voyager tiles which provide English labels for global locations
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
+    }).addTo(map);
+
+    // Custom AFCODD Logo Icon
+    const afcoddIcon = L.icon({
+        iconUrl: 'assets/logo.png',
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
+        popupAnchor: [0, -40]
+    });
+
+    const locations = {
+        "Ugandan Embassy": [24.4443, 54.3970],
+        "African Kitchen": [25.2685, 55.3090],
+        "Nigerian Consulate": [25.2586, 55.3031],
+        "Ethiopian Restaurant": [25.2635, 55.3340]
+    };
+
+    const markers = {};
+    for (const [name, coords] of Object.entries(locations)) {
+        markers[name] = L.marker(coords, { icon: afcoddIcon }).addTo(map).bindPopup(`<b>${name}</b>`);
+    }
+
+    const sidebarItems = document.querySelectorAll('.map-location-item');
+    sidebarItems.forEach(item => {
+        item.addEventListener('click', () => {
+            sidebarItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+            
+            const lat = item.getAttribute('data-lat');
+            const lng = item.getAttribute('data-lng');
+            const title = item.querySelector('strong').textContent;
+            
+            map.flyTo([lat, lng], 13);
+            if(markers[title]) markers[title].openPopup();
+        });
+    });
+}
+
 /* GLOBAL THEME PERSISTENCE */
 const globalThemeToggle = document.getElementById('globalThemeToggle');
 const savedTheme = localStorage.getItem('site-theme') || 'dark';
@@ -1410,6 +1469,7 @@ function init() {
     const savedLang = localStorage.getItem('language') || 'en';
     setLanguage(savedLang);
     updateNationalityCounts();
+    initCommunityMap();
 
     // Initialize custom selects
     initCustomSelect('packageSelectWrapper', 'packageTrigger', 'packageOptionsList', 'packageMovingHighlight', 'packageType', 'packageTriggerText');
