@@ -995,8 +995,34 @@ function initCommunityMap() {
 
     const markers = {};
     for (const [name, coords] of Object.entries(locations)) {
-        markers[name] = L.marker(coords, { icon: afcoddIcon }).addTo(map).bindPopup(`<b>${name}</b>`);
+        const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${coords[0]},${coords[1]}`;
+        const popupContent = `
+            <b>${name}</b>
+            <br>
+            <a href="${directionsUrl}" target="_blank" style="color: var(--primary); text-decoration: none; font-size: 12px; display: inline-block; margin-top: 5px;">
+                <i class="fas fa-directions"></i> Get Directions
+            </a>
+        `;
+        markers[name] = L.marker(coords, { icon: afcoddIcon }).addTo(map).bindPopup(popupContent);
     }
+
+    // Add GeoSearch Control
+    const searchControl = new window.GeoSearch.GeoSearchControl({
+        provider: new window.GeoSearch.OpenStreetMapProvider(),
+        style: 'bar',
+        showMarker: true,
+        showPopup: true,
+        marker: {
+            icon: afcoddIcon,
+            draggable: false,
+        },
+        maxMarkers: 1,
+        retainZoomLevel: false,
+        animateZoom: true,
+        autoClose: true,
+        keepResult: true
+    });
+    map.addControl(searchControl);
 
     const sidebarItems = document.querySelectorAll('.map-location-item');
     sidebarItems.forEach(item => {
@@ -1012,6 +1038,16 @@ function initCommunityMap() {
             if(markers[title]) markers[title].openPopup();
         });
     });
+
+    // Reset Button Logic
+    const resetBtn = document.getElementById('mapResetBtn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            map.flyTo([24.8, 54.8], 9);
+            map.closePopup();
+            sidebarItems.forEach(i => i.classList.remove('active'));
+        });
+    }
 }
 
 /* GLOBAL THEME PERSISTENCE */

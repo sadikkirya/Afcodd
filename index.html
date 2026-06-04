@@ -28,6 +28,10 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+<!-- LEAFLET GEOSEARCH -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.11.0/dist/geosearch.css" />
+<script src="https://unpkg.com/leaflet-geosearch@3.11.0/dist/bundle.min.js"></script>
+
 <!-- CSS -->
 <link rel="stylesheet" href="style.css">
 
@@ -199,7 +203,11 @@ HERO
                 <div><strong>Ethiopian Restaurant</strong><p>Dubai, UAE</p></div>
             </div>
         </div>
-        <div id="map-display" class="map-display"></div>
+        <div id="map-display" class="map-display">
+            <button id="mapResetBtn" class="map-reset-btn" title="Reset Map View">
+                <i class="fas fa-compress-arrows-alt"></i>
+            </button>
+        </div>
     </div>
 </section>
 
