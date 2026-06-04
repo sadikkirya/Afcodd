@@ -762,42 +762,26 @@ if (jobApplicationForm) {
 if (hiringForm) {
     hiringForm.addEventListener('submit', (e) => {
         e.preventDefault();
-
+        
         // Final validation for the last step
         if (!validateHiringStep(currentHiringStep)) {
             return;
+        }
+        // Handle Signature
+        const signatureCanvas = document.getElementById('signatureCanvas');
+        const idSignatureImg = document.getElementById('idSignatureImg');
+        if (signatureCanvas && idSignatureImg) {
+            idSignatureImg.src = signatureCanvas.toDataURL();
         }
 
         const spinner = submitHiringBtn.querySelector('.loading-spinner');
         submitHiringBtn.disabled = true;
         submitHiringBtn.textContent = "Sending Request...";
         spinner.style.display = 'inline-block';
-
-        const memberName = document.getElementById('clientName').value;
-        const profession = document.getElementById('memberProfession').value;
-        const nationality = document.getElementById('preferredNationality').options[document.getElementById('preferredNationality').selectedIndex].text;
-        const emergencyName = document.getElementById('emergencyContactName').value;
-
+        
         // Simulate network request
         setTimeout(() => {
-            closeHiringModal();
-            
-            // Populate and show ID Modal
-            const idName = document.getElementById('idMemberName');
-            if(idName) idName.textContent = memberName;
-            const idRole = document.getElementById('idMemberRole');
-            if(idRole) idRole.textContent = profession || "Verified Member";
-            const idNat = document.getElementById('idMemberNat');
-            if(idNat) idNat.textContent = nationality.toUpperCase();
-            const idEmergency = document.getElementById('idEmergencyContact');
-            if(idEmergency) idEmergency.textContent = emergencyName || "N/A";
-            
-            const idModal = document.getElementById('idModalOverlay');
-            if(idModal) {
-                idModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-
+            generateIdCard(); // Logic extracted for reuse
             // Reset form button
             if(submitHiringBtn) {
                 submitHiringBtn.textContent = "Confirm & Send Request";
@@ -807,6 +791,50 @@ if (hiringForm) {
         }, 2000);
     });
 }
+
+/* GENERATE/PREVIEW ID CARD LOGIC */
+function generateIdCard() {
+    const memberName = document.getElementById('clientName').value || "John Doe";
+    const profession = document.getElementById('memberProfession').value || "Verified Member";
+    const natSelect = document.getElementById('preferredNationality');
+    const nationality = natSelect.options[natSelect.selectedIndex].text || "AFRICAN";
+    const locationSelect = document.getElementById('serviceLocation');
+    const location = locationSelect ? locationSelect.options[locationSelect.selectedIndex].text : 'DUBAI';
+    const emergencyName = document.getElementById('emergencyContactName').value || "N/A";
+    const emergencyPhone = document.getElementById('emergencyContactPhone').value || "";
+    const medicalNotes = document.getElementById('medicalNotes').value || "No critical medical notes provided.";
+    const uniqueId = document.getElementById('idMemberId').textContent === 'AF-00000' ? 
+                    "AF-" + Math.floor(10000 + Math.random() * 90000) : 
+                    document.getElementById('idMemberId').textContent;
+
+    // Update UI elements
+    document.getElementById('idMemberName').textContent = memberName;
+    document.getElementById('idMemberRole').textContent = profession;
+    document.getElementById('idMemberId').textContent = uniqueId;
+    document.getElementById('idMemberNat').textContent = nationality.toUpperCase();
+    document.getElementById('idMemberLoc').textContent = location.toUpperCase();
+    document.getElementById('idMemberSince').textContent = new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase();
+    document.getElementById('idEmergencyContact').textContent = `${emergencyName} (${emergencyPhone})`;
+    document.getElementById('idMedicalNotes').textContent = medicalNotes;
+
+    // Update Signature
+    const canvas = document.getElementById('signatureCanvas');
+    if (canvas) document.getElementById('idSignatureImg').src = canvas.toDataURL();
+
+    // Update QR Code
+    const qrImg = document.getElementById('idQrCode');
+    const qrData = encodeURIComponent(`AFCODD MEMBER\nName: ${memberName}\nID: ${uniqueId}\nRole: ${profession}\nNat: ${nationality}`);
+    if(qrImg) qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${qrData}`;
+
+    // Open Modal
+    document.getElementById('idModalOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// Preview Button Event
+document.getElementById('previewCardBtn').addEventListener('click', () => {
+    if (validateHiringStep(currentHiringStep)) generateIdCard();
+});
 
 // Print Hiring Summary
 document.addEventListener('click', (e) => {
@@ -830,32 +858,87 @@ function closeIdModal() {
     document.body.style.overflow = '';
 }
 
+/* DOWNLOAD ID AS PDF */
+async function downloadIdAsPdf() {
+    const container = document.getElementById('idCardContainer');
+    const downloadBtn = document.getElementById('downloadIdPdfBtn') || document.getElementById('downloadIdBtn');
+    if (!container || !downloadBtn) return;
+
+    const isFlipped = container.classList.contains('flipped');
+    const card = isFlipped ? container.querySelector('.id-card-back') : container.querySelector('.id-card-front');
+    const sideLabel = isFlipped ? 'BACK' : 'FRONT';
+
+    // Temporarily fix styles for capture to avoid blank output from absolute positioning
+    const originalPos = card.style.position;
+    const originalTransform = card.style.transform;
+    const originalBackface = card.style.backfaceVisibility;
+
+    card.style.position = 'relative';
+    card.style.transform = 'none'; // Disable 3D transforms for flat capture
+    card.style.backfaceVisibility = 'visible';
+
+    const opt = {
+        margin: 0,
+        filename: `AFCODD_ID_${sideLabel}_${document.getElementById('idMemberName').textContent.replace(/\s+/g, '_')}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 3, useCORS: true, logging: false },
+        jsPDF: { unit: 'mm', format: [100.5, 63.5], orientation: 'landscape' } // Standard ID Card size
+    };
+
+    const originalContent = downloadBtn.innerHTML;
+    downloadBtn.disabled = true;
+    downloadBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Generating ${sideLabel} PDF...`;
+    
+    try {
+        await html2pdf().from(card).set(opt).save();
+    } catch (err) {
+        console.error("PDF generation failed:", err);
+    } finally {
+        card.style.position = originalPos; // Restore original style
+        card.style.transform = originalTransform;
+        card.style.backfaceVisibility = originalBackface;
+        downloadBtn.innerHTML = originalContent;
+        downloadBtn.disabled = false;
+    }
+}
+
 /* DOWNLOAD ID AS IMAGE */
 async function downloadIdAsImage() {
-    const card = document.querySelector('.id-card-front');
+    const container = document.getElementById('idCardContainer');
     const downloadBtn = document.getElementById('downloadIdBtn');
-    if (!card || !downloadBtn) return;
+    if (!container || !downloadBtn) return;
+
+    const isFlipped = container.classList.contains('flipped');
+    const card = isFlipped ? container.querySelector('.id-card-back') : container.querySelector('.id-card-front');
+    const sideLabel = isFlipped ? 'BACK' : 'FRONT';
+
+    const originalPos = card.style.position;
+    const originalTransform = card.style.transform;
+    const originalBackface = card.style.backfaceVisibility;
+
+    card.style.position = 'relative';
+    card.style.transform = 'none'; // Disable 3D transforms for flat capture
+    card.style.backfaceVisibility = 'visible';
+
+    // Provide visual feedback
+    const originalContent = downloadBtn.innerHTML;
+    downloadBtn.disabled = true;
+    downloadBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Generating ${sideLabel} Image...`;
 
     try {
-        downloadBtn.disabled = true;
-        downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
-        
-        const canvas = await html2canvas(card, {
-            backgroundColor: null,
-            scale: 2, // Higher quality
-            useCORS: true
-        });
-        
+        const canvas = await html2canvas(card, { scale: 4, useCORS: true, backgroundColor: null, logging: false });
         const link = document.createElement('a');
-        link.download = `AFCODD_ID_${document.getElementById('idMemberName').textContent.replace(/\s+/g, '_')}.png`;
-        link.href = canvas.toDataURL('image/png');
+        link.download = `AFCODD_ID_${sideLabel}_${document.getElementById('idMemberName').textContent.replace(/\s+/g, '_')}.png`;
+        link.href = canvas.toDataURL("image/png");
         link.click();
-    } catch (error) {
-        console.error('Error generating ID card image:', error);
+    } catch (e) {
+        console.error("Image generation failed:", e);
     } finally {
+        card.style.position = originalPos;
+        card.style.transform = originalTransform;
+        card.style.backfaceVisibility = originalBackface;
+        downloadBtn.innerHTML = originalContent;
         downloadBtn.disabled = false;
-        downloadBtn.innerHTML = 'Download ID Card';
-        closeIdModal();
     }
 }
 
@@ -864,6 +947,14 @@ const idCardContainer = document.getElementById('idCardContainer');
 if (idCardContainer) {
     idCardContainer.addEventListener('click', () => {
         idCardContainer.classList.toggle('flipped');
+    });
+
+    idCardContainer.addEventListener('mousemove', (e) => {
+        const rect = idCardContainer.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        idCardContainer.style.setProperty('--holo-x', `${x}%`);
+        idCardContainer.style.setProperty('--holo-y', `${y}%`);
     });
 }
 
@@ -1071,6 +1162,10 @@ if (globalThemeToggle) {
 
 if (document.getElementById('downloadIdBtn')) {
     document.getElementById('downloadIdBtn').onclick = downloadIdAsImage;
+}
+
+if (document.getElementById('downloadIdPdfBtn')) {
+    document.getElementById('downloadIdPdfBtn').onclick = downloadIdAsPdf;
 }
 
 /* MARKETPLACE MODAL LOGIC */
@@ -1467,6 +1562,88 @@ function updateBudgetUI() {
     }
 }
 
+/* PHOTO UPLOAD PREVIEW LOGIC */
+const photoDropZone = document.getElementById('photoDropZone');
+const photoInput = document.getElementById('memberPhoto');
+
+if (photoDropZone && photoInput) {
+    photoDropZone.addEventListener('click', () => photoInput.click());
+    
+    photoInput.addEventListener('change', (e) => {
+        if (e.target.files.length) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            const prompt = photoDropZone.querySelector('.drop-zone__prompt');
+            
+            reader.onload = (event) => {
+                document.getElementById('idProfileImg').src = event.target.result;
+                if (prompt) {
+                    prompt.textContent = "Photo uploaded successfully!";
+                    prompt.style.color = 'var(--secondary)';
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    photoDropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        photoDropZone.classList.add('drop-zone--over');
+    });
+
+    ['dragleave', 'dragend'].forEach(type => {
+        photoDropZone.addEventListener(type, () => photoDropZone.classList.remove('drop-zone--over'));
+    });
+
+    photoDropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        photoInput.files = e.dataTransfer.files;
+        photoInput.dispatchEvent(new Event('change'));
+        photoDropZone.classList.remove('drop-zone--over');
+    });
+}
+
+/* SIGNATURE PAD LOGIC */
+function initSignaturePad() {
+    const canvas = document.getElementById('signatureCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+
+    function getMousePos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return {
+            x: (clientX - rect.left) * (canvas.width / rect.width),
+            y: (clientY - rect.top) * (canvas.height / rect.height)
+        };
+    }
+
+    canvas.addEventListener('mousedown', (e) => {
+        drawing = true;
+        const pos = getMousePos(e);
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+    });
+    canvas.addEventListener('mousemove', (e) => {
+        if (!drawing) return;
+        const pos = getMousePos(e);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+    });
+    window.addEventListener('mouseup', () => drawing = false);
+    
+    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); drawing = true; const pos = getMousePos(e); ctx.beginPath(); ctx.moveTo(pos.x, pos.y); }, {passive: false});
+    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); if (!drawing) return; const pos = getMousePos(e); ctx.lineTo(pos.x, pos.y); ctx.strokeStyle = '#000'; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.stroke(); }, {passive: false});
+    canvas.addEventListener('touchend', () => drawing = false);
+
+    document.getElementById('clearSignatureBtn').onclick = () => ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
 /* HANDLE SLIDER BOUNDS ON PACKAGE CHANGE */
 function handlePackageChange() {
     const packageType = document.getElementById('packageType').value;
@@ -1507,6 +1684,7 @@ function init() {
     updateBudgetUI(); // Initial call
     const savedLang = localStorage.getItem('language') || 'en';
     setLanguage(savedLang);
+    initSignaturePad();
     updateNationalityCounts();
     initCommunityMap();
 

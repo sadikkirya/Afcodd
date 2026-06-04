@@ -1909,6 +1909,8 @@ DIGITAL ID FLIP ANIMATION
     background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
     border: 1px solid rgba(247, 195, 95, 0.3); /* Gold tint */
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
 }
 
 .id-card-back {
@@ -1920,9 +1922,55 @@ DIGITAL ID FLIP ANIMATION
 .id-card-glare {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, transparent 1px, transparent 2px);
+    background: radial-gradient(
+        circle at var(--holo-x, 50%) var(--holo-y, 50%),
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(0, 217, 255, 0.1) 20%,
+        rgba(247, 195, 95, 0.05) 40%,
+        transparent 80%
+    );
     pointer-events: none;
     z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.id-card-container:hover .id-card-glare {
+    opacity: 1;
+}
+
+.id-card-watermark {
+    position: absolute;
+    inset: 0;
+    background: url('assets/logo.png') center/40% no-repeat;
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 1;
+}
+/* Holographic Seal */
+.id-card-seal {
+    position: absolute;
+    top: 60px;
+    right: -20px;
+    background: linear-gradient(135deg, #ff00ff, #00ffff, #ff00ff, #ffff00);
+    background-size: 400% 400%;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 2px 30px;
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    transform: rotate(-45deg);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 5;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: holoShift 10s ease infinite;
+}
+
+@keyframes holoShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .id-header { 
@@ -1934,6 +1982,31 @@ DIGITAL ID FLIP ANIMATION
 
 .id-brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 12px; letter-spacing: 1px; }
 .id-brand img { height: 30px; width: auto; }
+
+.id-contact-chip {
+    width: 38px;
+    height: 30px;
+    background: linear-gradient(135deg, #f7c35f 0%, #daa520 50%, #b8860b 100%);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 0.5px solid rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+}
+.id-contact-chip::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 0; width: 100%; height: 1px;
+    background: rgba(0,0,0,0.15);
+}
+.id-contact-chip::before {
+    content: '';
+    position: absolute;
+    left: 42%; top: 0; width: 1px; height: 100%;
+    background: rgba(0,0,0,0.15);
+}
 
 .id-vip-badge {
     background: linear-gradient(45deg, #f7c35f, #ffeb3b);
@@ -1990,6 +2063,35 @@ DIGITAL ID FLIP ANIMATION
     z-index: 2;
 }
 
+.signature-field {
+    background: white;
+    border-radius: 12px;
+    margin-top: 8px;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.1);
+    height: 100px;
+}
+
+#signatureCanvas {
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+#clearSignatureBtn {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 10px;
+    padding: 2px 8px;
+    background: var(--danger);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 .id-chip { 
     font-size: 10px; 
     color: var(--gray); 
@@ -2000,14 +2102,15 @@ DIGITAL ID FLIP ANIMATION
 
 .id-chip i { font-size: 22px; color: #f7c35f; }
 
-.qr-code { 
-    font-size: 32px; 
-    color: white; 
-    background: rgba(255,255,255,0.05);
+.qr-code-wrapper { 
+    width: 35px;
+    height: 35px;
+    background: white;
     padding: 5px;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
 }
+
+.qr-code-wrapper img { width: 100%; height: 100%; display: block; }
 
 .id-back-content h4 { color: var(--primary); font-size: 11px; text-transform: uppercase; margin-bottom: 5px; margin-top: 15px; }
 .id-back-content p { font-size: 14px; color: white; font-weight: 500; }
@@ -2141,4 +2244,15 @@ ONBOARDING FORM THEME TOGGLE
 .whatsapp-share-btn:hover {
     filter: brightness(1.1);
     transform: translateY(-2px);
+}
+
+/* Print styles for ID Card browser printing */
+@media print {
+    body * { visibility: hidden; }
+    #idModalOverlay, #idModalOverlay * { visibility: visible; }
+    #idModalOverlay { position: absolute !important; left: 0; top: 0; width: 100%; background: none !important; }
+    .id-card-container { transform: none !important; perspective: none !important; margin: 20px auto; }
+    .id-card-inner { transform: none !important; }
+    .id-card-front { position: relative !important; visibility: visible !important; box-shadow: none !important; left: 0; top: 0; }
+    .id-card-back, .id-modal-footer, .close-btn, .id-card-seal, .theme-toggle-modal { display: none !important; }
 }

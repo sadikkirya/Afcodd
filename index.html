@@ -38,6 +38,9 @@
 <!-- HTML2CANVAS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+<!-- HTML2PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 <!-- CONFETTI -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
@@ -759,6 +762,18 @@ HIRING MODAL (FOR EMPLOYERS)
                 <label for="clientPhone">UAE Phone Number</label>
                 <input type="tel" id="clientPhone" name="clientPhone" placeholder="+971 5X XXX XXXX" required>
                 
+                <label>Digital Signature</label>
+                <div class="signature-field">
+                    <canvas id="signatureCanvas" width="400" height="100"></canvas>
+                    <button type="button" id="clearSignatureBtn">Clear</button>
+                </div>
+
+                <label for="memberPhoto">Profile Picture</label>
+                <div class="drop-zone" id="photoDropZone" style="height: 80px; padding: 10px;">
+                    <span class="drop-zone__prompt" style="font-size: 12px;">Click to upload ID Photo</span>
+                    <input type="file" id="memberPhoto" name="memberPhoto" accept="image/*" class="drop-zone__input">
+                </div>
+
                 <div class="step-buttons">
                     <button type="button" class="btn btn-primary next-step">Next: Diaspora Profile</button>
                 </div>
@@ -822,6 +837,7 @@ HIRING MODAL (FOR EMPLOYERS)
             <div class="form-step">
                 <div id="hiringSummary" class="summary-container"></div>
                 
+                <button type="button" class="btn btn-secondary" id="previewCardBtn" style="width: 100%; margin-top: 15px;"><i class="fas fa-eye"></i> Preview ID Card</button>
                 <div class="step-buttons">
                     <button type="button" class="btn btn-secondary prev-step">Back</button>
                     <button type="submit" class="btn btn-primary" id="submitHiringBtn">
@@ -955,6 +971,7 @@ DIASPORA ID MODAL (NEW)
                 <!-- Front Face -->
                 <div class="id-card-front" id="memberIdCard">
                     <div class="id-card-glare"></div>
+                    <div class="id-card-watermark"></div>
                     <div class="id-header">
                         <div class="id-brand">
                             <img src="assets/logo.png" alt="AFCODD">
@@ -962,43 +979,62 @@ DIASPORA ID MODAL (NEW)
                         </div>
                         <div class="id-vip-badge">VIP GOLD</div>
                     </div>
-                    
+
+                    <div class="id-contact-chip"></div>
+
                     <div class="id-main">
                         <div class="id-photo-container">
-                            <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=200" id="idProfileImg" alt="Profile">
+                            <img src="https://via.placeholder.com/200" id="idProfileImg" alt="Profile">
                         </div>
                         <div class="id-info">
                             <h2 id="idMemberName">John Doe</h2>
                             <p id="idMemberRole">Verified Member</p>
                             <div class="id-meta">
+                                <div><span>MEMBER ID</span><strong id="idMemberId">AF-00000</strong></div>
                                 <div><span>NATIONALITY</span><strong id="idMemberNat">UGANDAN</strong></div>
-                                <div><span>EXPIRY</span><strong>03/2028</strong></div>
+                                <div><span>RESIDENCE</span><strong id="idMemberLoc">DUBAI</strong></div>
+                                <div><span>JOINED</span><strong id="idMemberSince">MAR 2026</strong></div>
+                            </div>
+                            <!-- Signature Area -->
+                            <div style="margin-top: 10px; border-bottom: 1px solid rgba(255,255,255,0.2); width: 100px; height: 30px;">
+                                <img id="idSignatureImg" src="" alt="" style="width: 100%; height: 100%; object-fit: contain; filter: invert(1);">
+                                <span style="font-size: 6px; color: var(--gray); display: block; margin-top: 2px; text-transform: uppercase;">Signature</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="id-footer">
                         <div class="id-chip"><i class="fas fa-microchip"></i> <span>SECURE ACCESS</span></div>
-                        <div class="qr-code"><i class="fas fa-qrcode"></i></div>
+                        <div class="qr-code-wrapper">
+                            <img id="idQrCode" src="" alt="QR">
+                        </div>
                     </div>
                 </div>
                 <!-- Back Face -->
                 <div class="id-card-back">
+                    <div class="id-card-glare"></div>
+                    <div class="id-card-watermark"></div>
                     <div class="id-header">
-                        <i class="fas fa-shield-alt" style="color: var(--secondary);"></i>
-                        <span>Membership Details</span>
+                        <div class="id-brand" style="opacity: 0.8;">
+                            <img src="assets/logo.png" alt="AFCODD" style="height: 20px !important;">
+                            <span style="font-size: 10px;">AFCODD</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 5px;"><i class="fas fa-shield-alt" style="color: var(--danger);"></i><span style="font-size: 10px;">EMERGENCY INFO</span></div>
                     </div>
                     <div class="id-back-content">
                         <h4>Emergency Contact</h4>
                         <p id="idEmergencyContact">Not Set</p>
-                        <h4>Member Since</h4>
-                        <p>March 2026</p>
+                        <h4>Medical Notes</h4>
+                        <p id="idMedicalNotes" style="font-size: 11px; opacity: 0.8; line-height: 1.4;">No critical medical notes provided.</p>
                     </div>
-                    <div style="font-size: 9px; opacity: 0.6; text-align: center;">Click to flip back</div>
+                    <div style="font-size: 9px; opacity: 0.6; text-align: center; margin-top: auto;">Click to flip back</div>
                 </div>
             </div>
         </div>
-        <button class="btn btn-primary" id="downloadIdBtn" style="width: 100%; margin-top: 20px;">Download ID Card</button>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="btn btn-primary" id="downloadIdBtn" style="flex: 1;"><i class="fas fa-image"></i> Save Image</button>
+            <button class="btn btn-secondary" id="downloadIdPdfBtn" style="flex: 1;"><i class="fas fa-file-pdf"></i> Save PDF</button>
+        </div>
     </div>
 </div>
 
