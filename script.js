@@ -61,6 +61,7 @@ const translations = {
         cta_btn: "Register Now",
         poll_title: "Community Poll",
         poll_subtitle: "Vote for our next major community event theme!",
+        modal_ticket_title: "Book Event Tickets",
         onboarding_title: "Join AFCODD UAE",
         btn_post_item: "Post an Item",
         modal_market_title: "Post to Marketplace",
@@ -1227,6 +1228,118 @@ if (marketPostForm) {
         marketModalOverlay.classList.remove('active');
         document.body.style.overflow = '';
         marketPostForm.reset();
+    });
+}
+
+/* JOB MODAL LOGIC */
+const jobModalOverlay = document.getElementById('jobModalOverlay');
+const postJobBtn = document.getElementById('postJobBtn');
+const closeJobModalBtn = document.getElementById('closeJobModalBtn');
+const jobPostForm = document.getElementById('jobPostForm');
+
+if (postJobBtn) {
+    postJobBtn.onclick = () => {
+        jobModalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    };
+}
+
+if (closeJobModalBtn) {
+    closeJobModalBtn.onclick = () => {
+        jobModalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+}
+
+/* JOB DESCRIPTION CHARACTER COUNTER */
+const jobDescription = document.getElementById('jobDescription');
+const jobCharCount = document.getElementById('jobCharCount');
+if (jobDescription && jobCharCount) {
+    jobDescription.addEventListener('input', (e) => {
+        jobCharCount.textContent = e.target.value.length;
+    });
+}
+
+if (jobPostForm) {
+    jobPostForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const title = document.getElementById('jobTitleInput').value;
+        const desc = jobDescription.value;
+
+        // Custom Validation
+        if (title.length < 5) {
+            alert("Please provide a more descriptive job title (min 5 characters).");
+            return;
+        }
+        if (desc.length < 20) {
+            alert("Please provide a more detailed description (min 20 characters).");
+            return;
+        }
+
+        alert("Job post submitted for verification! It will appear on the board shortly.");
+        jobModalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+        jobPostForm.reset();
+        if (jobCharCount) jobCharCount.textContent = "0";
+    });
+}
+
+/* ACCESS RESOURCES LOGIC */
+const accessResourcesBtn = document.getElementById('accessResourcesBtn');
+if (accessResourcesBtn) {
+    accessResourcesBtn.addEventListener('click', () => {
+        // Open the specific PDF guide in a new tab
+        const pdfUrl = 'assets/AFCODD_UAE_Labor_Law_Guide_2026.pdf';
+        window.open(pdfUrl, '_blank');
+    });
+}
+
+/* BOOK TICKETS LOGIC */
+const bookTicketsBtn = document.getElementById('bookTicketsBtn');
+const ticketModalOverlay = document.getElementById('ticketModalOverlay');
+const closeTicketModalBtn = document.getElementById('closeTicketModalBtn');
+const ticketBookingForm = document.getElementById('ticketBookingForm');
+
+if (bookTicketsBtn) {
+    bookTicketsBtn.addEventListener('click', () => {
+        ticketModalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        if (typeof confetti === 'function') {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+    });
+}
+
+if (closeTicketModalBtn) {
+    closeTicketModalBtn.onclick = () => {
+        ticketModalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+}
+
+if (ticketBookingForm) {
+    ticketBookingForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert("Tickets reserved! A confirmation link has been sent to your email.");
+        ticketModalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+        ticketBookingForm.reset();
+    });
+}
+
+/* CONFIGURE SOS BUTTON */
+const configureSosBtn = document.getElementById('configureSosBtn');
+if (configureSosBtn) {
+    configureSosBtn.addEventListener('click', () => {
+        openHiringModal(); // Reusing the onboarding modal
+        // Automatically jump to the SOS Step (Step 3, index 2)
+        showHiringStep(2);
     });
 }
 

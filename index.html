@@ -163,13 +163,13 @@ HERO
             <i class="fas fa-gavel qatar-service-icon"></i>
             <h4 data-i18n="service_res_std_title">Legal Aid Library</h4>
             <p data-i18n="service_res_std_desc">Downloadable guides on UAE labor laws, visa renewals, and contract rights.</p>
-            <button class="btn btn-secondary">Access Resources</button>
+            <button class="btn btn-secondary" id="accessResourcesBtn">Access Resources</button>
         </div>
         <div class="qatar-service-card reveal">
             <i class="fas fa-shield-alt qatar-service-icon"></i>
             <h4 data-i18n="service_res_deep_title">Emergency SOS</h4>
             <p data-i18n="service_res_deep_desc">One-tap emergency alerts to AFCODD leaders for medical or legal crises.</p>
-            <button class="btn btn-primary">Configure SOS</button>
+            <button class="btn btn-primary" id="configureSosBtn">Configure SOS</button>
         </div>
         <div class="qatar-service-card reveal">
             <i class="fas fa-id-card qatar-service-icon"></i>
@@ -424,7 +424,7 @@ JOBS BOARD (NEW)
     </div>
 
     <div class="filter-container reveal" style="text-align: center; margin-bottom: 30px;">
-        <button class="btn btn-secondary" style="margin-right: 10px;"><i class="fas fa-plus-circle"></i> Post a Job</button>
+        <button class="btn btn-secondary" id="postJobBtn" style="margin-right: 10px;"><i class="fas fa-plus-circle"></i> Post a Job</button>
     </div>
 
     <div class="grid">
@@ -457,7 +457,7 @@ EVENTS & SPORTS
 <div class="card timeline-card">
     <h3>Inter-Community Football Finals</h3>
     <p>Watch the top 4 community teams compete for the AFCODD Cup at Al Wasl Sports Club.</p>
-    <button class="btn btn-secondary" style="margin-top: 15px; font-size: 11px;">Book Tickets</button>
+    <button class="btn btn-secondary" id="bookTicketsBtn" style="margin-top: 15px; font-size: 11px;">Book Tickets</button>
 </div>
 </div>
 </div>
@@ -1065,6 +1065,61 @@ MARKETPLACE MODAL (NEW)
             <textarea id="itemDesc" required placeholder="Describe your item..."></textarea>
             
             <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Post Item</button>
+        </form>
+    </div>
+</div>
+
+<!-- ======================================================
+JOB POSTING MODAL (NEW)
+====================================================== -->
+<div class="modal-overlay" id="jobModalOverlay">
+    <div class="application-modal">
+        <button class="close-btn" id="closeJobModalBtn">&times;</button>
+        <h2 data-i18n="modal_job_title">Post a Career Opportunity</h2>
+        <form class="application-form" id="jobPostForm">
+            <label for="jobTitleInput">Job Title</label>
+            <input type="text" id="jobTitleInput" required placeholder="e.g. Sales Manager">
+            
+            <label for="companyInput">Company Name</label>
+            <input type="text" id="companyInput" required placeholder="Name of the employer">
+            
+            <label for="jobLocation">Location (Emirate)</label>
+            <select id="jobLocation" class="form-select">
+                <option value="Dubai">Dubai</option>
+                <option value="Abu Dhabi">Abu Dhabi</option>
+                <option value="Sharjah">Sharjah</option>
+                <option value="Remote">Remote</option>
+            </select>
+            
+            <label for="jobDescription">Short Description</label>
+            <div class="textarea-wrapper">
+                <textarea id="jobDescription" required placeholder="Describe the role and requirements..." maxlength="500"></textarea>
+                <div class="char-counter"><span id="jobCharCount">0</span>/500</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Post Job</button>
+        </form>
+    </div>
+</div>
+
+<!-- ======================================================
+TICKET BOOKING MODAL (NEW)
+====================================================== -->
+<div class="modal-overlay" id="ticketModalOverlay">
+    <div class="application-modal">
+        <button class="close-btn" id="closeTicketModalBtn">&times;</button>
+        <h2 data-i18n="modal_ticket_title">Book Event Tickets</h2>
+        <form class="application-form" id="ticketBookingForm">
+            <label for="ticketName">Full Name</label>
+            <input type="text" id="ticketName" required placeholder="Enter your full name">
+
+            <label for="ticketEmail">Email Address</label>
+            <input type="email" id="ticketEmail" required placeholder="email@example.com">
+
+            <label for="ticketQty">Number of Tickets</label>
+            <input type="number" id="ticketQty" min="1" max="10" value="1" required class="form-select" style="padding: 12px 18px;">
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Confirm Booking</button>
         </form>
     </div>
 </div>

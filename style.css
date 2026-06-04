@@ -125,6 +125,11 @@ body.light-mode .qatar-service-card {
     border: 1px solid #e2e8f0;
 }
 
+/* Job Modal Specific Dark Mode Tweaks */
+#jobModalOverlay .application-modal {
+    border: 1px solid rgba(0, 217, 255, 0.2);
+}
+
 /* ======================================================
 NAVBAR
 ====================================================== */
