@@ -407,7 +407,7 @@ function populateApplicationSummary() {
         "LinkedIn Profile": document.getElementById('applicantLinkedIn').value || 'N/A',
         "Resume": document.getElementById('applicantResume').files[0] ? document.getElementById('applicantResume').files[0].name : 'Not uploaded',
         "Cover Letter": document.getElementById('applicantCoverLetter').value || 'N/A',
-        "Desired Salary (QAR)": document.getElementById('desiredSalary').value || 'N/A',
+        "Desired Salary (AED)": document.getElementById('desiredSalary').value || 'N/A',
         "Availability": availabilityText
     };
 
@@ -998,7 +998,39 @@ if (closeMarketModalBtn) {
 if (marketPostForm) {
     marketPostForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        alert("Item submitted for verification! It will appear in the marketplace shortly.");
+        
+        const name = document.getElementById('itemName')?.value || "New Item";
+        const price = document.getElementById('itemPrice')?.value || "0";
+        const category = document.getElementById('itemCategory')?.value || "General";
+        const desc = document.getElementById('itemDesc')?.value || "";
+
+        const marketGrid = document.querySelector('.market-grid');
+        if (marketGrid) {
+            const newItem = document.createElement('div');
+            newItem.className = 'market-item reveal active';
+            newItem.dataset.title = name;
+            newItem.dataset.category = category.toLowerCase();
+            newItem.dataset.price = price;
+            newItem.innerHTML = `
+                <div class="market-card">
+                    <div class="market-img" style="background: var(--darker); display: flex; align-items: center; justify-content: center; height: 200px;">
+                        <i class="fas fa-box-open fa-3x" style="color: var(--primary);"></i>
+                    </div>
+                    <div class="market-content">
+                        <span class="market-tag">${category}</span>
+                        <h4>${name}</h4>
+                        <p>${desc}</p>
+                        <div class="market-footer">
+                            <span class="market-price">AED ${price}</span>
+                            <button class="whatsapp-share-btn" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            marketGrid.prepend(newItem);
+        }
+
+        alert("Item submitted for verification and added to the preview!");
         marketModalOverlay.classList.remove('active');
         document.body.style.overflow = '';
         marketPostForm.reset();
@@ -1112,7 +1144,7 @@ document.querySelector('.btn-danger-sos')?.addEventListener('click', (e) => {
 });
 
 function triggerSos(type) {
-    alert(`SOS ALERT SENT: ${type.toUpperCase()}\nLocation data and emergency profile shared. AFCODD responders are being notified.`);
+    alert(`🚨 SOS ALERT SENT: ${type.toUpperCase()}\n\nYour GPS coordinates and Digital Diaspora ID have been shared with AFCODD emergency responders and local authorities in your Emirate.`);
     closeSosModal();
 }
 
@@ -1312,7 +1344,7 @@ function updateBudgetUI() {
         
         const hourly = (val / hoursPerUnit).toFixed(2);
         if (hourlyDisplay) {
-            hourlyDisplay.innerHTML = `<i class="fas fa-calculator"></i> Est. <strong>${hourly} QAR/hour</strong> (${packageType})`;
+            hourlyDisplay.innerHTML = `<i class="fas fa-calculator"></i> Est. <strong>${hourly} AED/hour</strong> (${packageType})`;
         }
 
         if (totalHoursDisplay) {
@@ -1325,7 +1357,7 @@ function updateBudgetUI() {
         if (category && minRates[category] && warningDisplay && warningWrapper) {
             const minBudget = minRates[category][packageType];
             if (val < minBudget) {
-                warningDisplay.textContent = `Note: Below recommended minimum (${minBudget} QAR).`;
+                warningDisplay.textContent = `Note: Below recommended minimum (${minBudget} AED).`;
                 warningWrapper.style.display = 'flex';
                 if (tooltipDisplay) tooltipDisplay.textContent = minReasons[category];
                 display.style.color = '#ff4d4d';
@@ -1382,6 +1414,21 @@ function init() {
     // Initialize custom selects
     initCustomSelect('packageSelectWrapper', 'packageTrigger', 'packageOptionsList', 'packageMovingHighlight', 'packageType', 'packageTriggerText');
     initCustomSelect('categorySelectWrapper', 'categoryTrigger', 'categoryOptionsList', 'categoryMovingHighlight', 'workforceType', 'categoryTriggerText');
+
+    // Global listener for SOS and Registration buttons based on data-i18n attributes
+    document.addEventListener('click', (e) => {
+        const target = e.target.closest('[data-i18n]');
+        if (!target) return;
+
+        const key = target.getAttribute('data-i18n');
+        if (key === 'btn_apply') {
+            e.preventDefault();
+            openSosModal();
+        } else if (key === 'cta_btn' || key === 'btn_hire') {
+            e.preventDefault();
+            openHiringModal();
+        }
+    });
 }
 
 /* REUSABLE CUSTOM SELECT LOGIC */
