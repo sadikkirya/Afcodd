@@ -154,14 +154,14 @@ nav{
 }
 
 .logo{
-    font-size:32px;
+    font-size:42px;
     font-weight:800;
     display: flex;
     align-items: center;
 }
 
 .logo img {
-    height: 100px;
+    height: 130px;
     width: auto;
     display: block;
     object-fit: contain;
@@ -175,17 +175,17 @@ nav{
 .logo .logo-separator {
     display: inline-block;
     width: 1px;
-    height: 60px; /* Adjust height as needed */
+    height: 90px; /* Adjust height as needed */
     background-color: rgba(255, 255, 255, 0.3);
     margin: 0 15px; /* Space around the separator */
     vertical-align: middle;
 }
 
 .logo span{
-    color: var(--primary); /* Set to solid blue */
+    color: #005BB7; /* Pure blue matching the logo crest */
     /* Ensure no gradient is applied if it was previously */
     background: none;
-    -webkit-text-fill-color: var(--primary);
+    -webkit-text-fill-color: #005BB7;
 }
 
 .logo [data-i18n="logo_suffix"] {
