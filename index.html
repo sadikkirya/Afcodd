@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en" id="mainHtml">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AFCODD UAE | African Community Development Diaspora</title>
+
+<meta name="description" content="AFCODD: Empowering the African Diaspora in the UAE through welfare, professional networking, and emergency support.">
+<meta name="keywords" content="AFCODD UAE, African Diaspora, Uganda UAE, Kenya UAE, Diaspora Welfare Fund, African Community Dubai">
+
+<!-- GOOGLE FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- FAVICON -->
+<link rel="icon" type="image/png" href="assets/logo.png">
+
+<!-- FONT AWESOME -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<!-- CSS -->
+<link rel="stylesheet" href="style.css">
+
+<!-- HTML2CANVAS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<!-- CONFETTI -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="progressBar"></div>
+
+<div class="top-banner" data-i18n="top_banner">
+    <div class="ticker-wrapper">
+        <div class="ticker-item">🇦🇪 AFCODD UAE | Unity & Welfare Portal</div>
+        <div class="ticker-item">📢 Embassy Visit: Saturday at Al Ghurair Center</div>
+    </div>
+</div>
+
+<!-- ======================================================
+NAVBAR
+====================================================== -->
+
+<header>
+
+<nav>
+
+<div class="logo">
+    <img src="assets/logo.png" alt="MedRich Logo">
+    <span class="logo-separator"></span>
+    AFCO<span>DD</span> <span data-i18n="logo_suffix">UAE Portal</span>
+</div>
+
+<div class="nav-links" id="navLinks">
+
+<a href="#home" data-i18n="nav_home">Dashboard</a>
+<a href="#welfare" data-i18n="nav_services">Welfare</a>
+<a href="#directory" data-i18n="nav_workers">Members</a>
+<a href="#events" data-i18n="nav_process">Events</a>
+<a href="#resources" data-i18n="nav_resources">Resources</a>
+<a href="#marketplace" data-i18n="nav_marketplace">Marketplace</a>
+<a href="#jobs" data-i18n="nav_contact">Jobs</a>
+
+<div class="nav-underline" id="navUnderline"></div>
+</div>
+
+<div class="theme-switch-wrapper">
+    <button id="globalThemeToggle" class="theme-btn"><i class="fas fa-moon"></i></button>
+</div>
+
+<div class="lang-switch" id="langToggle">
+    <span id="langText">العربية</span>
+</div>
+
+<div class="menu-btn" id="menuBtn">
+<i class="fas fa-bars"></i>
+</div>
+
+</nav>
+
+</header>
+
+<!-- ======================================================
+HERO
+====================================================== -->
+
+<section class="hero" id="home">
+
+<div class="hero-content reveal">
+
+<div class="live-badge">
+<div class="live-dot" style="background: var(--danger);"></div>
+<span data-i18n="hero_badge">Welfare Fund: 85% Reached</span>
+</div>
+
+<h1 data-i18n="hero_title">
+    Empowering the <span>African</span> Diaspora in the UAE
+</h1>
+
+<p data-i18n="hero_desc">
+    Join the largest network of African professionals in the UAE. Access emergency support, legal resources, community welfare funds, and professional networking opportunities.
+</p>
+
+<div class="hero-buttons">
+<a href="#" class="btn btn-primary hire-btn" data-i18n="btn_hire">Join AFCODD</a>
+<a href="#sos" class="btn btn-danger-sos"><i class="fas fa-exclamation-triangle"></i> SOS Emergency</a>
+</div>
+
+</div>
+
+<div class="hero-image reveal">
+
+<img src="assets/Cleaning.jpg">
+
+</div>
+
+</section>
+
+<!-- Welfare Hub -->
+<section id="welfare">
+<div class="section-title reveal">
+<h2 data-i18n="services_title">Diaspora Welfare Hub</h2>
+<p data-i18n="services_subtitle">Financial transparency and mutual aid programs for members.</p>
+</div>
+<div class="fund-tracker-card reveal">
+    <div class="fund-header">
+        <h4><i class="fas fa-hand-holding-heart"></i> Repatriation & Medical Fund</h4>
+        <span>Target: 50,000 AED</span>
+    </div>
+    <div class="progress-container" style="height: 20px; display: block;">
+        <div class="progress-fill" style="width: 85%;"></div>
+    </div>
+    <p style="font-size: 13px; margin-top: 10px; color: var(--gray);">Current: 42,500 AED (85%) - <a href="#" style="color: var(--secondary);">View Ledger</a></p>
+</div>
+<div class="qatar-services-wrapper">
+    <h3 class="qatar-category-title reveal" data-i18n="service_res_title">Community Support</h3>
+    <div class="qatar-services-grid">
+        <div class="qatar-service-card reveal">
+            <i class="fas fa-gavel qatar-service-icon"></i>
+            <h4 data-i18n="service_res_std_title">Legal Aid Library</h4>
+            <p data-i18n="service_res_std_desc">Downloadable guides on UAE labor laws, visa renewals, and contract rights.</p>
+            <button class="btn btn-secondary">Access Resources</button>
+        </div>
+        <div class="qatar-service-card reveal">
+            <i class="fas fa-shield-alt qatar-service-icon"></i>
+            <h4 data-i18n="service_res_deep_title">Emergency SOS</h4>
+            <p data-i18n="service_res_deep_desc">One-tap emergency alerts to AFCODD leaders for medical or legal crises.</p>
+            <button class="btn btn-primary">Configure SOS</button>
+        </div>
+        <div class="qatar-service-card reveal">
+            <i class="fas fa-id-card qatar-service-icon"></i>
+            <h4 data-i18n="service_res_move_title">Digital Diaspora ID</h4>
+            <p data-i18n="service_res_move_desc">Generate your secure QR-coded ID card for event access and verification.</p>
+            <button class="btn btn-secondary hire-btn">Generate ID</button>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Community Hub Map -->
+<section id="community-map">
+    <div class="section-title reveal">
+        <h2 data-i18n="map_title">Community Hubs</h2>
+        <p data-i18n="map_subtitle">Locate embassies, African restaurants, and community meeting points near you.</p>
+    </div>
+    <div class="map-container-wrapper reveal">
+        <div class="map-sidebar">
+            <div class="map-location-item active">
+                <i class="fas fa-landmark"></i>
+                <div><strong>Ugandan Embassy</strong><p>Abu Dhabi, UAE</p></div>
+            </div>
+            <div class="map-location-item">
+                <i class="fas fa-utensils"></i>
+                <div><strong>African Kitchen</strong><p>Deira, Dubai</p></div>
+            </div>
+        </div>
+        <div id="map-placeholder" class="map-display">
+            <div class="map-overlay-text">Interactive Map Integration Loading...</div>
+        </div>
+    </div>
+</section>
+
+<!-- Settling In Guide -->
+<section id="resources">
+    <div class="section-title reveal">
+        <h2 data-i18n="res_title">Settling in UAE Guide</h2>
+        <p data-i18n="res_subtitle">Essential 'One-Stop' information for moving, living, and thriving in the Emirates.</p>
+    </div>
+    <div class="grid">
+        <div class="card reveal">
+            <div class="service-content">
+                <div class="service-icon"><i class="fas fa-university"></i></div>
+                <h3 data-i18n="res_banking_title">Banking & Finance</h3>
+                <p data-i18n="res_banking_desc">Guides on opening accounts, credit cards for expats, and remittance tips.</p>
+                <button class="btn btn-secondary">Read Guide</button>
+            </div>
+        </div>
+        <div class="card reveal">
+            <div class="service-content">
+                <div class="service-icon"><i class="fas fa-home"></i></div>
+                <h3 data-i18n="res_housing_title">Housing & EJARI</h3>
+                <p data-i18n="res_housing_desc">Finding the right neighborhood, understanding DEWA, and rental contracts.</p>
+                <button class="btn btn-secondary">Read Guide</button>
+            </div>
+        </div>
+        <div class="card reveal">
+            <div class="service-content">
+                <div class="service-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3 data-i18n="res_edu_title">Education & Schools</h3>
+                <p data-i18n="res_edu_desc">Information on school curriculum, fees, and the KHDA rating system.</p>
+                <button class="btn btn-secondary">Read Guide</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Community Marketplace -->
+<section id="marketplace">
+    <div class="section-title reveal">
+        <h2 data-i18n="market_title">Community Marketplace</h2>
+        <p data-i18n="market_subtitle">Support businesses owned by fellow diaspora members.</p>
+    </div>
+
+    <!-- Marketplace Filters -->
+    <div class="market-filters reveal">
+        <div class="filter-group">
+            <input type="text" id="marketSearchInput" data-i18n-placeholder="market_search_placeholder" placeholder="Search items...">
+        </div>
+        <div class="filter-group">
+            <select id="marketCategoryFilter" class="form-select">
+                <option value="all" data-i18n="filter_all_categories">All Categories</option>
+                <option value="electronics">Electronics</option>
+                <option value="furniture">Furniture</option>
+                <option value="fashion">Fashion</option>
+                <option value="services">Services</option>
+            </select>
+        </div>
+        <div class="filter-group price-inputs">
+            <input type="number" id="marketMinPrice" placeholder="Min Price">
+            <input type="number" id="marketMaxPrice" placeholder="Max Price">
+        </div>
+    </div>
+
+    <div style="text-align: center; margin: 20px 0 40px;" class="reveal">
+        <button class="btn btn-primary" id="openMarketModalBtn"><i class="fas fa-plus"></i> <span data-i18n="btn_post_item">Post an Item</span></button>
+    </div>
+
+    <div class="grid" id="marketGrid">
+        <div class="card reveal market-item" data-category="electronics" data-price="150" data-title="Professional Camera">
+            <div class="badge">AED 150</div>
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1200" alt="Product">
+            <div class="worker-info" style="position: relative; left: 0; bottom: 0; padding: 25px;">
+                <h3>Professional Camera</h3>
+                <p>Barely used, perfect for content creators.</p>
+                <div class="worker-tags"><span>Electronics</span><span>Dubai Marina</span></div>
+                <button class="btn btn-secondary contact-seller-btn" style="margin-top: 15px; width: 100%;">Contact Seller</button>
+                <button class="btn whatsapp-share-btn" style="margin-top: 10px; width: 100%; background: #25d366; color: white;"><i class="fab fa-whatsapp"></i> Share to WhatsApp</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Member Directory -->
+<section id="directory">
+
+<div class="section-title reveal">
+<h2 data-i18n="workers_title">Member Directory</h2>
+<p data-i18n="workers_subtitle">
+Find and network with African professionals across the UAE.
+</p>
+</div>
+
+<div class="filter-container reveal" style="text-align: center; margin-bottom: 40px;">
+    <label for="nationalityFilter" style="display: block; margin-bottom: 10px; color: var(--gray);" data-i18n="filter_label">Search by Profession:</label>
+    <select id="nationalityFilter" class="form-select" style="max-width: 300px; margin: 0 auto; border: 1px solid var(--primary);">
+        <option value="all">All Professions</option>
+        <option value="it">IT & Tech</option>
+        <option value="healthcare">Healthcare</option>
+        <option value="hospitality">Hospitality</option>
+        <option value="legal">Legal</option>
+    </select>
+</div>
+
+<div class="grid">
+
+<!-- Added multiple dummy cards for demonstration -->
+<div class="card reveal worker-card-item" data-nationality="uganda" data-profession="it">
+
+<div class="badge">
+Verified Member
+</div>
+
+<img src="https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=1200&auto=format&fit=crop">
+
+<div class="worker-info">
+<h3>Grace Namono</h3>
+<p>Senior Software Engineer</p>
+<div class="worker-tags">
+<span>Technology</span>
+<span>🇺🇬 Ugandan</span>
+<span>Mentorship</span>
+</div>
+<button class="btn btn-secondary view-profile-btn" style="margin-top: 15px; width: 100%;" data-worker-name="Grace Namono" data-bio="Grace is a highly experienced housekeeper with 4 years of experience in luxury villas in Kampala. She specializes in deep cleaning and infant care." data-skills="Ironing, Laundry, Childcare, Cooking" data-nationality="Ugandan">View Profile</button>
+</div>
+</div>
+
+<div class="card reveal worker-card-item" data-nationality="kenya" data-profession="healthcare">
+    <div class="badge">Verified Member</div>
+    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop">
+    <div class="worker-info">
+        <h3>Samuel Okello</h3>
+        <p>Registered Nurse</p>
+        <div class="worker-tags"><span>Healthcare</span><span>🇰🇪 Kenyan</span></div>
+        <button class="btn btn-secondary view-profile-btn" data-worker-name="Samuel Okello" data-bio="Experienced ICU nurse." data-skills="ER, ICU, Patient Care" data-nationality="Kenyan">View Profile</button>
+    </div>
+</div>
+
+<div class="card reveal worker-card-item" data-nationality="uae" data-profession="legal">
+    <div class="badge">Verified Member</div>
+    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop">
+    <div class="worker-info">
+        <h3>Ahmed Al-Zaid</h3>
+        <p>Legal Consultant</p>
+        <div class="worker-tags"><span>Legal</span><span>🇦🇪 UAE Base</span></div>
+        <button class="btn btn-secondary view-profile-btn" data-worker-name="Ahmed Al-Zaid" data-bio="Expert in UAE Labor law." data-skills="Contracts, Mediation" data-nationality="UAE">View Profile</button>
+    </div>
+</div>
+
+<div class="card reveal worker-card-item" data-nationality="uganda" data-profession="hospitality">
+    <div class="badge">Verified Member</div>
+    <img src="https://images.unsplash.com/photo-1531123897727-8f129e16fd3c?q=80&w=1200&auto=format&fit=crop">
+    <div class="worker-info">
+        <h3>Joy Nakato</h3>
+        <p>Hospitality Lead</p>
+        <div class="worker-tags"><span>Hospitality</span><span>🇺🇬 Ugandan</span></div>
+        <button class="btn btn-secondary view-profile-btn" data-worker-name="Joy Nakato" data-bio="Customer service expert." data-skills="F&B, Front Desk" data-nationality="Ugandan">View Profile</button>
+    </div>
+</div>
+
+</div>
+</div>
+
+<div class="flags reveal" id="nationalityFlags">
+    <div class="flag active" data-nationality="all">
+        <span>All Members</span>
+        <span class="member-count" data-count-for="all">0</span>
+    </div>
+    <div class="flag" data-nationality="uganda">
+        <img src="https://flagcdn.com/w40/ug.png" alt="Uganda">
+        <span>Uganda</span>
+        <span class="member-count" data-count-for="uganda">0</span>
+    </div>
+    <div class="flag" data-nationality="kenya">
+        <img src="https://flagcdn.com/w40/ke.png" alt="Kenya">
+        <span>Kenya</span>
+        <span class="member-count" data-count-for="kenya">0</span>
+    </div>
+    <div class="flag" data-nationality="tanzania">
+        <img src="https://flagcdn.com/w40/tz.png" alt="Tanzania">
+        <span>Tanzania</span>
+        <span class="member-count" data-count-for="tanzania">0</span>
+    </div>
+    <div class="flag" data-nationality="rwanda">
+        <img src="https://flagcdn.com/w40/rw.png" alt="Rwanda">
+        <span>Rwanda</span>
+        <span class="member-count" data-count-for="rwanda">0</span>
+    </div>
+    <div class="flag" data-nationality="ethiopia">
+        <img src="https://flagcdn.com/w40/et.png" alt="Ethiopia">
+        <span>Ethiopia</span>
+        <span class="member-count" data-count-for="ethiopia">0</span>
+    </div>
+    <div class="flag" data-nationality="uae">
+        <img src="https://flagcdn.com/w40/ae.png" alt="UAE">
+        <span>UAE</span>
+        <span class="member-count" data-count-for="uae">0</span>
+    </div>
+</div>
+
+</section>
+
+<!-- ======================================================
+JOBS BOARD (NEW)
+====================================================== -->
+
+<section id="jobs">
+    <div class="section-title reveal">
+        <h2 data-i18n="jobs_title">Verified Jobs Board</h2>
+        <p data-i18n="jobs_subtitle">Exclusive career opportunities posted by and for the AFCODD community.</p>
+    </div>
+
+    <div class="filter-container reveal" style="text-align: center; margin-bottom: 30px;">
+        <button class="btn btn-secondary" style="margin-right: 10px;"><i class="fas fa-plus-circle"></i> Post a Job</button>
+    </div>
+
+    <div class="grid">
+        <div class="card reveal job-post-card">
+            <div class="badge">New Post</div>
+            <div class="service-content">
+                <h3>Hospitality Supervisor</h3>
+                <p><strong>Company:</strong> Jumeirah Group (via AFCODD Member)</p>
+                <p>Looking for an experienced supervisor for a luxury resort in Dubai. Must be verified member.</p>
+                <div class="worker-tags"><span>Full-time</span><span>Dubai</span></div>
+                <button class="btn btn-primary" style="width: 100%; margin-top: 20px;">View Details</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================
+EVENTS & SPORTS
+====================================================== -->
+
+<section id="events">
+<div class="section-title reveal">
+<h2 data-i18n="process_title">Community Calendar</h2>
+<p data-i18n="process_subtitle">Sports tournaments, career fairs, and social gatherings.</p>
+</div>
+
+<div class="timeline">
+<div class="timeline-item reveal">
+<div class="timeline-dot"></div>
+<div class="card timeline-card">
+    <h3>Inter-Community Football Finals</h3>
+    <p>Watch the top 4 community teams compete for the AFCODD Cup at Al Wasl Sports Club.</p>
+    <button class="btn btn-secondary" style="margin-top: 15px; font-size: 11px;">Book Tickets</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ======================================================
+TESTIMONIALS
+====================================================== -->
+
+<section>
+
+<div class="section-title reveal">
+<h2 data-i18n="testimonials_title">Community Voice</h2>
+</div>
+<div class="testimonials">
+<div class="card testimonial reveal">
+<p data-i18n="testi_1">AFCODD helped me navigate my labor contract when I was confused. The legal library is a lifesaver for every new arrival in the UAE.</p>
+
+<div class="user">
+
+<img src="https://randomuser.me/api/portraits/women/44.jpg">
+
+<div>
+<h4>Sarah Ahmed</h4>
+<small>Hotel Operations Manager</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="card testimonial reveal">
+<p data-i18n="testi_2">The welfare fund provided critical support when my family faced a medical emergency. AFCODD truly looks out for its members in the UAE.</p>
+
+<div class="user">
+<img src="https://randomuser.me/api/portraits/men/32.jpg">
+<div>
+<h4>Daniel Okoro</h4>
+<h4>Logistics Coordinator</h4>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ======================================================
+COMMUNITY POLL (NEW)
+====================================================== -->
+
+<section id="poll">
+    <div class="section-title reveal">
+        <h2 data-i18n="poll_title">Community Poll</h2>
+        <p data-i18n="poll_subtitle">Vote for our next major community event theme!</p>
+    </div>
+    <div class="poll-container card reveal" style="max-width: 600px; margin: 0 auto; padding: 30px;">
+        <div id="poll-voting">
+            <div class="poll-option" style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                <input type="radio" name="event-poll" id="opt-sports" value="sports" style="width: auto;">
+                <label for="opt-sports" style="margin: 0; cursor: pointer;">Annual Sports Gala 2026</label>
+            </div>
+            <div class="poll-option" style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                <input type="radio" name="event-poll" id="opt-business" value="business" style="width: auto;">
+                <label for="opt-business" style="margin: 0; cursor: pointer;">Diaspora Business Expo</label>
+            </div>
+            <div class="poll-option" style="margin-bottom: 25px; display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                <input type="radio" name="event-poll" id="opt-cultural" value="cultural" style="width: auto;">
+                <label for="opt-cultural" style="margin: 0; cursor: pointer;">African Cultural Night & Dinner</label>
+            </div>
+            <button id="submit-vote" class="btn btn-primary" style="width: 100%;">Cast Vote</button>
+        </div>
+        <div id="poll-results" style="display: none;">
+            <h4 style="margin-bottom: 20px; color: var(--secondary);">Live Results</h4>
+            <div class="result-item" style="margin-bottom: 15px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 14px;"><span>Sports Gala</span><span id="perc-sports">0%</span></div>
+                <div style="height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden;"><div id="bar-sports" style="height: 100%; background: var(--primary); width: 0%; transition: 1s;"></div></div>
+            </div>
+            <div class="result-item" style="margin-bottom: 15px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 14px;"><span>Business Expo</span><span id="perc-business">0%</span></div>
+                <div style="height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden;"><div id="bar-business" style="height: 100%; background: var(--secondary); width: 0%; transition: 1s;"></div></div>
+            </div>
+            <div class="result-item" style="margin-bottom: 15px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 14px;"><span>Cultural Night</span><span id="perc-cultural">0%</span></div>
+                <div style="height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden;"><div id="bar-cultural" style="height: 100%; background: var(--gold); width: 0%; transition: 1s;"></div></div>
+            </div>
+            <p style="font-size: 12px; color: var(--gray); text-align: center; margin-top: 15px;">Thank you for your participation!</p>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================
+FAQ SECTION
+====================================================== -->
+
+<section id="faq">
+    <div class="section-title reveal">
+        <h2 data-i18n="faq_title">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-container reveal">
+        <div class="faq-item">
+            <div class="faq-question" data-i18n="faq_q1">How do I access the Welfare Fund? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-answer" data-i18n="faq_a1">Members can apply via the Dashboard. Requests are reviewed by community leaders for emergency repatriation or medical support within 24 hours.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" data-i18n="faq_q2">What is the Digital ID used for? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-answer" data-i18n="faq_a2">The Digital ID serves as community verification for sports events, SOS assistance, and exclusive member discounts at partner businesses.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question" data-i18n="faq_q3">How does the SOS Emergency work? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-answer" data-i18n="faq_a3">Once you join AFCODD and set up your emergency contacts, the SOS button provides one-tap alerts to both community responders and your next of kin.</div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================================================
+CTA
+====================================================== -->
+
+<section id="contact">
+<div class="cta reveal">
+<h2 data-i18n="cta_title">
+Ready to join the AFCODD Community?
+</h2>
+<p data-i18n="cta_desc">
+Start your registration today to access professional networks, 
+emergency welfare benefits, and community support in the UAE.
+</p>
+<a href="#" class="btn btn-primary hire-btn" data-i18n="cta_btn">
+Register Now
+</a>
+</div>
+</section>
+
+<!-- ======================================================
+FOOTER
+====================================================== -->
+
+<footer>
+
+<h3 data-i18n="footer_title">
+AFCODD UAE Diaspora Development
+</h3>
+
+<p data-i18n="footer_desc">
+Empowering Africans in the UAE | Unity & Growth
+</p>
+
+<div class="socials">
+
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-linkedin-in"></i></a>
+<a href="#"><i class="fab fa-whatsapp"></i></a>
+
+</div>
+
+<p data-i18n="footer_rights">
+© 2026 AFCODD UAE. All Rights Reserved.
+</p>
+
+</footer>
+
+<!-- ======================================================
+APPLICATION MODAL
+====================================================== -->
+
+<div class="modal-overlay" id="applicationModalOverlay">
+    <div class="application-modal">
+        <button class="close-btn" id="closeModalBtn">&times;</button>
+        <div id="applicationModalContent">
+            <h2>Apply for <span id="modalJobTitle"></span></h2>
+        <form class="application-form" id="jobApplicationForm">
+            <div class="progress-container" id="uploadProgressContainer" style="display: none;">
+                <div class="progress-fill" id="uploadProgressFill"></div>
+            </div>
+
+            <div id="formError" class="error-msg"></div>
+
+            <div class="step-indicator" id="applicationStepIndicator">
+                <div class="step-dot active" data-step="0"></div>
+                <div class="step-dot" data-step="1"></div>
+                <div class="step-dot" data-step="2"></div>
+            </div>
+
+            <!-- Step 1: Personal Information -->
+            <div class="form-step active">
+                <label for="applicantName">Full Name</label>
+                <input type="text" id="applicantName" name="applicantName" placeholder="Enter your full name" required minlength="3">
+
+                <label for="applicantEmail">Email Address</label>
+                <input type="email" id="applicantEmail" name="applicantEmail" placeholder="email@example.com" required>
+
+                <label for="applicantPhone">Phone Number (Optional)</label>
+                <input type="tel" id="applicantPhone" name="applicantPhone" placeholder="+974 5555 1234">
+
+                <label for="applicantLinkedIn">LinkedIn Profile URL (Optional)</label>
+                <input type="url" id="applicantLinkedIn" name="applicantLinkedIn" placeholder="https://linkedin.com/in/yourprofile">
+                
+                <div class="step-buttons">
+                    <button type="button" class="btn btn-primary next-step">Next: Resume & Details</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Resume & Details -->
+            <div class="form-step">
+                <label for="applicantResume">Resume (PDF, Max 2MB)</label>
+                <div class="drop-zone" id="resumeDropZone">
+                    <span class="drop-zone__prompt">Drop resume here or click to upload</span>
+                    <input type="file" id="applicantResume" name="applicantResume" accept=".pdf,.doc,.docx" required class="drop-zone__input">
+                </div>
+
+                <div id="resumePreview" class="resume-preview" style="display: none;">
+                    <div class="preview-header">
+                        <span><i class="fas fa-file-pdf"></i> Resume Preview</span>
+                        <button type="button" id="removeResumeBtn" class="remove-btn">Remove</button>
+                    </div>
+                    <iframe id="pdfFrame" src=""></iframe>
+                </div>
+
+                <label for="applicantCoverLetter">Message / Cover Letter</label>
+                <div class="textarea-wrapper">
+                    <textarea id="applicantCoverLetter" name="applicantCoverLetter" placeholder="Tell us about your experience..." minlength="20" maxlength="500"></textarea>
+                    <div class="char-counter"><span id="currentChar">0</span>/500</div>
+                </div>
+
+                <label for="desiredSalary">Desired Monthly Salary (QAR)</label>
+                <input type="number" id="desiredSalary" name="desiredSalary" placeholder="e.g., 5000" min="0">
+
+                <label for="availability">Availability</label>
+                <select id="availability" name="availability" class="form-select">
+                    <option value="" disabled selected>Select availability...</option>
+                    <option value="immediately">Immediately</option>
+                    <option value="2weeks">2 Weeks Notice</option>
+                    <option value="1month">1 Month Notice</option>
+                    <option value="negotiable">Negotiable</option>
+                </select>
+                
+                <div class="step-buttons">
+                    <button type="button" class="btn btn-secondary prev-step">Back</button>
+                    <button type="button" class="btn btn-primary next-step">Next: Review Application</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Summary -->
+            <div class="form-step">
+                <div id="applicationSummary" class="summary-container"></div>
+                
+                <div class="step-buttons">
+                    <button type="button" class="btn btn-secondary prev-step">Back</button>
+                    <button type="submit" class="btn btn-primary" id="submitApplicationBtn">Submit Application</button>
+                </div>
+            </div>
+        </form>
+        </div>
+        <div id="applicationSuccess" class="success-message" style="display: none;">
+            <div class="particles">
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+            </div>
+            <i class="fas fa-check-circle"></i>
+            <h3>Application Received!</h3>
+            <p style="color: var(--gray);">Thank you for applying. Our recruitment team will review your profile and contact you shortly.</p>
+            <div class="countdown-timer">
+                Closing in <span class="timer-count">5</span>s
+            </div>
+            <button type="button" class="btn btn-primary" style="margin-top: 25px;" onclick="closeApplicationModal()">Back to Jobs</button>
+        </div>
+    </div>
+</div>
+
+<!-- ======================================================
+HIRING MODAL (FOR EMPLOYERS)
+====================================================== -->
+
+<div class="modal-overlay" id="hiringModalOverlay">
+    <div class="application-modal">
+        <button class="close-btn" id="closeHiringModalBtn">&times;</button>
+        <button class="theme-toggle-modal" id="modalThemeToggle"><i class="fas fa-sun"></i></button>
+        <div id="hiringModalContent">
+        <h2 data-i18n="onboarding_title">Join AFCODD UAE</h2>
+        <p style="color: var(--gray); font-size: 14px; margin-bottom: 20px;" data-i18n="onboarding_subtitle">Become a verified member of the diaspora community.</p>
+        
+        <div class="step-indicator" id="hiringStepIndicator">
+            <div class="step-dot active" data-step="0"></div>
+            <div class="step-dot" data-step="1"></div>
+            <div class="step-dot" data-step="2"></div>
+            <div class="step-dot" data-step="3"></div>
+        </div>
+
+        <form class="application-form" id="hiringForm">
+            <!-- Step 1: Identity -->
+            <div class="form-step active">
+                <label for="clientName">Full Name</label>
+                <input type="text" id="clientName" name="clientName" placeholder="Your full name as per Passport" required>
+
+                <label for="clientEmail">Email Address</label>
+                <input type="email" id="clientEmail" name="clientEmail" placeholder="your@email.com" required>
+
+                <label for="clientPhone">UAE Phone Number</label>
+                <input type="tel" id="clientPhone" name="clientPhone" placeholder="+971 5X XXX XXXX" required>
+                
+                <div class="step-buttons">
+                    <button type="button" class="btn btn-primary next-step">Next: Diaspora Profile</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Profile -->
+            <div class="form-step">
+                <label for="preferredNationality">Nationality</label>
+                <select id="preferredNationality" name="preferredNationality" class="form-select" required>
+                    <option value="" disabled selected>Select your country...</option>
+                    <option value="uganda">Uganda 🇺🇬</option>
+                    <option value="kenya">Kenya 🇰🇪</option>
+                    <option value="rwanda">Rwanda 🇷🇼</option>
+                    <option value="tanzania">Tanzania 🇹🇿</option>
+                    <option value="ethiopia">Ethiopia 🇪🇹</option>
+                    <option value="other">Other African Nation</option>
+                </select>
+
+                <label for="memberProfession">Profession / Job Title</label>
+                <input type="text" id="memberProfession" name="memberProfession" placeholder="e.g. Software Engineer, Nurse" required>
+
+                <label for="serviceLocation">Current Residence (Emirate)</label>
+                <select id="serviceLocation" name="serviceLocation" class="form-select" required>
+                    <option value="" disabled selected>Select Emirate...</option>
+                    <option value="Dubai">Dubai</option>
+                    <option value="Abu Dhabi">Abu Dhabi</option>
+                    <option value="Sharjah">Sharjah</option>
+                    <option value="Ajman">Ajman</option>
+                    <option value="RAK">Ras Al Khaimah</option>
+                    <option value="Fujairah">Fujairah</option>
+                    <option value="UAQ">Umm Al Quwain</option>
+                </select>
+                
+                <div class="step-buttons">
+                    <button type="button" class="btn btn-secondary prev-step">Back</button>
+                    <button type="button" class="btn btn-primary next-step">Next: Emergency Setup</button>
+                </div>
+            </div>
+
+            <!-- Step 3: SOS & Emergency -->
+            <div class="form-step">
+                <h4 style="color: var(--danger); margin-bottom: 10px;"><i class="fas fa-exclamation-circle"></i> SOS Configuration</h4>
+                <p style="font-size: 12px; color: var(--gray); margin-bottom: 15px;">Setting this up allows AFCODD to assist you faster in case of medical or legal emergencies.</p>
+
+                <label for="emergencyContactName">Emergency Contact Name</label>
+                <input type="text" id="emergencyContactName" name="emergencyContactName" placeholder="Next of Kin Name" required>
+
+                <label for="emergencyContactPhone">Emergency Contact Phone</label>
+                <input type="tel" id="emergencyContactPhone" name="emergencyContactPhone" placeholder="Phone number" required>
+
+                <label for="medicalNotes">Important Medical Info (Optional)</label>
+                <textarea id="medicalNotes" name="medicalNotes" placeholder="Allergies, chronic conditions, etc."></textarea>
+                
+                <div class="step-buttons">
+                    <button type="button" class="btn btn-secondary prev-step">Back</button>
+                    <button type="button" class="btn btn-primary next-step">Review Membership</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Summary -->
+            <div class="form-step">
+                <div id="hiringSummary" class="summary-container"></div>
+                
+                <div class="step-buttons">
+                    <button type="button" class="btn btn-secondary prev-step">Back</button>
+                    <button type="submit" class="btn btn-primary" id="submitHiringBtn">
+                        Complete Registration
+                        <i class="fas fa-spinner fa-spin loading-spinner" style="display: none;"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        </div>
+        <div id="hiringSuccess" class="success-message" style="display: none;">
+            <div class="particles">
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+                <span class="particle"></span>
+            </div>
+            <i class="fas fa-paper-plane"></i>
+            <h3>Membership Approved!</h3>
+            <p style="color: var(--gray);">Welcome to AFCODD. Your diaspora profile is now active and your SOS benefits are live.</p>
+            <div class="countdown-timer">
+                Closing in <span class="timer-count">5</span>s
+            </div>
+            <button type="button" class="btn btn-primary" style="margin-top: 25px;" onclick="closeHiringModal()">Got it</button>
+        </div>
+    </div>
+</div>
+
+<!-- ======================================================
+PACKAGE COMPARISON MODAL
+====================================================== -->
+<div class="modal-overlay" id="comparisonModalOverlay">
+    <div class="application-modal" style="max-width: 600px;">
+        <button class="close-btn" id="closeComparisonModalBtn">&times;</button>
+        <h2 style="margin-bottom: 10px;">Compare Packages</h2>
+        <p style="color: var(--gray); font-size: 14px;">Choose the contract type that best fits your operational needs in Qatar.</p>
+        
+        <div class="comparison-table-wrapper">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>
+                            Full-Time
+                            <span class="recommended-badge" title="Our most popular choice for long-term operational stability and worker welfare.">Recommended</span>
+                        </th>
+                        <th>Part-Time</th>
+                        <th>Daily</th>
+                        <th>Hourly</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Standard Hours</td>
+                        <td>192 hrs/mo</td>
+                        <td>96 hrs/mo</td>
+                        <td>8 hrs/day</td>
+                        <td>On-demand</td>
+                    </tr>
+                    <tr>
+                        <td>Accommodation</td>
+                        <td><i class="fas fa-check-circle check-icon"></i> Provided</td>
+                        <td><i class="fas fa-info-circle" style="color: var(--gold)"></i> Optional</td>
+                        <td><i class="fas fa-times-circle times-icon"></i> No</td>
+                        <td><i class="fas fa-times-circle times-icon"></i> No</td>
+                    </tr>
+                    <tr>
+                        <td>Transportation</td>
+                        <td><i class="fas fa-check-circle check-icon"></i> Company Managed</td>
+                        <td><i class="fas fa-check-circle check-icon"></i> Included</td>
+                        <td><i class="fas fa-check-circle check-icon"></i> Included</td>
+                        <td><i class="fas fa-info-circle" style="color: var(--gold)"></i> Client Managed</td>
+                    </tr>
+                    <tr>
+                        <td>Health Insurance</td>
+                        <td><i class="fas fa-check-circle check-icon"></i> Comprehensive</td>
+                        <td><i class="fas fa-check-circle check-icon"></i> Standard</td>
+                        <td><i class="fas fa-check-circle check-icon"></i> Standard</td>
+                        <td><i class="fas fa-info-circle" style="color: var(--gold)"></i> Basic Coverage</td>
+                    </tr>
+                    <tr>
+                        <td>Best For</td>
+                        <td>Villas/Offices</td>
+                        <td>Small Offices</td>
+                        <td>Events</td>
+                        <td>Quick Fixes</td>
+                    </tr>
+                    <tr>
+                        <td>Contract Type</td>
+                        <td>Long-term</td>
+                        <td>Flexible</td>
+                        <td>One-time</td>
+                        <td>Ad-hoc</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button type="button" class="btn btn-primary" style="width: 100%; margin-top: 25px;" onclick="closeComparisonModal()">I Understand</button>
+    </div>
+</div>
+
+<!-- ======================================================
+WORKER PROFILE MODAL
+====================================================== -->
+<div class="modal-overlay" id="profileModalOverlay">
+    <div class="application-modal">
+        <button class="close-btn" id="closeProfileModalBtn">&times;</button>
+        <div class="profile-header">
+            <h2 id="profileName"></h2>
+            <span class="badge" id="profileNationality" style="position: static;"></span>
+        </div>
+        <div class="profile-body" style="margin-top: 20px;">
+            <h4 style="color: var(--primary);">Biography</h4>
+            <p id="profileBio" style="color: var(--gray); font-size: 14px; margin: 10px 0 20px;"></p>
+            <h4 style="color: var(--primary);">Specialized Skills</h4>
+            <div class="worker-tags" id="profileSkills" style="margin-top: 10px;"></div>
+        </div>
+        <button class="btn btn-primary hire-btn" style="width: 100%; margin-top: 30px;">Request Interview</button>
+    </div>
+</div>
+
+<!-- ======================================================
+DIASPORA ID MODAL (NEW)
+====================================================== -->
+<div class="modal-overlay" id="idModalOverlay">
+    <div class="application-modal" style="background: transparent; border: none; padding: 0;">
+        <div class="id-card-container" id="idCardContainer">
+            <div class="id-card-inner">
+                <!-- Front Face -->
+                <div class="id-card-front" id="memberIdCard">
+                    <div class="id-header">
+                        <img src="assets/logo.png" style="height: 40px; width: auto; margin: 0;">
+                        <span>AFCODD UAE</span>
+                    </div>
+                    <div class="id-user-info">
+                        <h2 id="idMemberName">John Doe</h2>
+                        <p id="idMemberRole">Verified Member</p>
+                    </div>
+                    <div class="id-footer">
+                        <div class="qr-placeholder"><i class="fas fa-qrcode"></i></div>
+                        <div style="font-size: 10px; opacity: 0.8;">Issued: 2026-MAR<br>ID: #AF-99201</div>
+                    </div>
+                </div>
+                <!-- Back Face -->
+                <div class="id-card-back">
+                    <div class="id-header">
+                        <i class="fas fa-shield-alt" style="color: var(--secondary);"></i>
+                        <span>Membership Details</span>
+                    </div>
+                    <div class="id-back-content">
+                        <h4>Emergency Contact</h4>
+                        <p id="idEmergencyContact">Not Set</p>
+                        <h4>Member Since</h4>
+                        <p>March 2026</p>
+                    </div>
+                    <div style="font-size: 9px; opacity: 0.6; text-align: center;">Click to flip back</div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" id="downloadIdBtn" style="width: 100%; margin-top: 20px;">Download ID Card</button>
+    </div>
+</div>
+
+<!-- ======================================================
+MARKETPLACE MODAL (NEW)
+====================================================== -->
+<div class="modal-overlay" id="marketModalOverlay">
+    <div class="application-modal">
+        <button class="close-btn" id="closeMarketModalBtn">&times;</button>
+        <h2 data-i18n="modal_market_title">Post to Marketplace</h2>
+        <form class="application-form" id="marketPostForm">
+            <label for="itemTitle" data-i18n="item_name">Item Name</label>
+            <input type="text" id="itemTitle" required placeholder="What are you selling?">
+            
+            <label for="itemPrice" data-i18n="item_price">Price (AED)</label>
+            <input type="number" id="itemPrice" required placeholder="Price in AED">
+            
+            <label for="itemCategory" data-i18n="item_category">Category</label>
+            <select id="itemCategory" class="form-select">
+                <option value="electronics">Electronics</option>
+                <option value="furniture">Furniture</option>
+                <option value="fashion">Fashion</option>
+                <option value="services">Services</option>
+                <option value="other">Other</option>
+            </select>
+            
+            <label for="itemDesc" data-i18n="item_desc">Description</label>
+            <textarea id="itemDesc" required placeholder="Describe your item..."></textarea>
+            
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Post Item</button>
+        </form>
+    </div>
+</div>
+
+<!-- ======================================================
+SOS EMERGENCY MODAL (NEW)
+====================================================== -->
+<div class="modal-overlay" id="sosModalOverlay">
+    <div class="application-modal" style="border: 2px solid var(--danger);">
+        <button class="close-btn" id="closeSosModalBtn">&times;</button>
+        <div style="text-align: center;">
+            <i class="fas fa-exclamation-triangle" style="font-size: 50px; color: var(--danger); margin-bottom: 20px;"></i>
+            <h2 style="color: var(--danger);">Emergency SOS</h2>
+            <p style="color: var(--gray); margin-bottom: 30px;">Are you in immediate danger or need urgent medical/legal assistance?</p>
+            
+            <div style="display: grid; gap: 15px;">
+                <button class="btn btn-danger-sos" style="width: 100%;" onclick="triggerSos('medical')">
+                    <i class="fas fa-ambulance"></i> Medical Emergency
+                </button>
+                <button class="btn btn-danger-sos" style="width: 100%; background: #000;" onclick="triggerSos('legal')">
+                    <i class="fas fa-balance-scale"></i> Legal / Police Help
+                </button>
+                <button class="btn btn-secondary" style="width: 100%;" onclick="closeSosModal()">
+                    Cancel
+                </button>
+            </div>
+            
+            <p style="font-size: 11px; color: var(--gray); margin-top: 20px; opacity: 0.7;">
+                Triggering SOS will share your location and membership details with AFCODD emergency responders and registered contacts.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- ======================================================
+CURRENCY CONVERTER WIDGET (NEW)
+====================================================== -->
+<div class="currency-widget" id="currencyWidget">
+    <div class="widget-toggle" id="currencyToggle">
+        <i class="fas fa-money-bill-transfer"></i>
+    </div>
+    <div class="widget-content">
+        <h4 style="margin-bottom: 15px; font-size: 16px;">AED Converter</h4>
+        <div style="margin-bottom: 10px;">
+            <input type="number" id="aedAmount" value="1" min="0" style="padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); color: white; width: 100%;">
+            <small style="font-size: 10px; color: var(--gray);">Amount in AED</small>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <select id="targetCurrency" style="padding: 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); color: white; width: 100%; cursor: pointer;">
+                <option value="UGX">Uganda (UGX)</option>
+                <option value="KES">Kenya (KES)</option>
+                <option value="NGN">Nigeria (NGN)</option>
+                <option value="TZS">Tanzania (TZS)</option>
+                <option value="RWF">Rwanda (RWF)</option>
+            </select>
+        </div>
+        <div id="convResult" style="text-align: center; padding: 15px; background: rgba(0,217,255,0.1); border-radius: 12px; border: 1px solid var(--primary);">
+            <h3 style="margin: 0; color: var(--primary);"><span id="convValue">1000</span> <small id="convSymbol" style="font-size: 12px; color: white;">UGX</small></h3>
+        </div>
+        <p style="font-size: 9px; opacity: 0.5; margin-top: 10px;">*Rates are approximate</p>
+    </div>
+</div>
+
+<!-- ======================================================
+FLOATING BUTTONS
+====================================================== -->
+
+<a href="#" class="whatsapp">
+<i class="fab fa-whatsapp"></i>
+</a>
+
+<div class="ai-chat">
+<i class="fas fa-robot"></i>
+</div>
+
+<!-- Email Simulation Toast -->
+<div id="emailToast" class="email-toast">
+    <div class="toast-content">
+        <i class="fas fa-paper-plane"></i>
+        <span>Confirmation email sent to your inbox!</span>
+    </div>
+</div>
+
+<!-- ======================================================
+SCRIPTS
+====================================================== -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
