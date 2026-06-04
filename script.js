@@ -775,6 +775,7 @@ if (hiringForm) {
 
         const memberName = document.getElementById('clientName').value;
         const profession = document.getElementById('memberProfession').value;
+        const nationality = document.getElementById('preferredNationality').options[document.getElementById('preferredNationality').selectedIndex].text;
         const emergencyName = document.getElementById('emergencyContactName').value;
 
         // Simulate network request
@@ -786,6 +787,8 @@ if (hiringForm) {
             if(idName) idName.textContent = memberName;
             const idRole = document.getElementById('idMemberRole');
             if(idRole) idRole.textContent = profession || "Verified Member";
+            const idNat = document.getElementById('idMemberNat');
+            if(idNat) idNat.textContent = nationality.toUpperCase();
             const idEmergency = document.getElementById('idEmergencyContact');
             if(idEmergency) idEmergency.textContent = emergencyName || "N/A";
             
