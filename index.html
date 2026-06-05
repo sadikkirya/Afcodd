@@ -148,6 +148,7 @@ HERO
     <div class="section-title reveal">
         <h2 data-i18n="analytics_title">Community Analytics</h2>
         <p data-i18n="analytics_subtitle">Real-time insights into membership growth and diaspora financial impact.</p>
+        <button id="downloadReportBtn" class="btn btn-secondary" style="margin-top: 15px;"><i class="fas fa-file-download"></i> <span data-i18n="btn_download_report">Download Report</span></button>
     </div>
 
     <div class="stats reveal" style="margin-bottom: 40px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
@@ -175,9 +176,30 @@ HERO
             <h2 id="stat-investments">82k</h2>
             <p data-i18n="stat_investments">Investments (AED)</p>
         </div>
+        <div class="stat">
+            <h2 id="stat-countries">6</h2>
+            <p data-i18n="stat_countries">Countries Represented</p>
+        </div>
     </div>
 
     <div class="grid reveal" style="margin-bottom: 40px;">
+        <!-- Spotlight Card -->
+        <div class="card" style="padding: 30px; display: flex; flex-direction: column; align-items: center; text-align: center; border: 1px solid var(--gold);">
+            <div class="badge" style="background: var(--gold); color: var(--dark); position: absolute; top: 15px; right: 15px;">SPOTLIGHT</div>
+            <h4 style="margin-bottom: 20px; color: var(--gold);" data-i18n="member_month_title">Member of the Month</h4>
+            <div class="user" style="flex-direction: column; gap: 15px;">
+                <img src="https://randomuser.me/api/portraits/men/46.jpg" style="width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--gold); object-fit: cover;">
+                <div>
+                    <h3 style="margin-bottom: 5px;">Kwame Mensah</h3>
+                    <p style="color: var(--primary); font-size: 14px; margin-bottom: 10px;">Health & Safety Officer</p>
+                    <div class="worker-tags" style="justify-content: center;">
+                        <span>🇬🇭 Ghana</span>
+                        <span>Volunteer Lead</span>
+                    </div>
+                </div>
+            </div>
+            <p style="font-size: 13px; color: var(--gray); margin-top: 20px; line-height: 1.6;" data-i18n="member_month_desc">Celebrated for leading the 'Health First' community workshop series in Sharjah.</p>
+        </div>
         <div class="card" style="padding: 30px; min-height: 400px; display: flex; flex-direction: column;">
             <h4 style="margin-bottom: 20px; color: var(--primary);" data-i18n="chart_financial">Financial Growth Overview</h4>
             <div style="flex: 1; position: relative;">

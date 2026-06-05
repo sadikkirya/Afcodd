@@ -77,6 +77,10 @@ const translations = {
         stat_investments: "Investments (AED)",
         chart_financial: "Financial Growth Overview",
         chart_status: "Member Status Distribution",
+        btn_download_report: "Download Report",
+        stat_countries: "Countries Represented",
+        member_month_title: "Member of the Month",
+        member_month_desc: "Celebrated for leading the 'Health First' community workshop series in Sharjah.",
         item_price: "Price (AED)",
         item_category: "Category",
         item_desc: "Description",
@@ -158,6 +162,10 @@ const translations = {
         stat_investments: "الاستثمارات (درهم)",
         chart_financial: "نظرة عامة على النمو المالي",
         chart_status: "توزيع حالة الأعضاء",
+        btn_download_report: "تحميل التقرير",
+        stat_countries: "الدول الممثلة",
+        member_month_title: "عضو الشهر",
+        member_month_desc: "تم الاحتفاء به لقيادته سلسلة ورش عمل 'الصحة أولاً' المجتمعية في الشارقة.",
         reg_national_id: "رقم الهوية الوطنية (البلد الأم)",
         reg_passport_no: "رقم جواز السفر",
         reg_emirates_id: "رقم الهوية الإماراتية",
@@ -1540,6 +1548,7 @@ document.addEventListener('click', (e) => {
 function updateNationalityCounts() {
     const counts = { all: 0, uganda: 0, kenya: 0, tanzania: 0, rwanda: 0, ethiopia: 0, uae: 0 };
     const members = document.querySelectorAll('.worker-card-item');
+    const uniqueCountries = new Set();
     
     members.forEach(member => {
         const nat = member.dataset.nationality;
@@ -1547,12 +1556,16 @@ function updateNationalityCounts() {
         if (counts.hasOwnProperty(nat)) {
             counts[nat]++;
         }
+        if (nat && nat !== 'all') uniqueCountries.add(nat);
     });
 
     Object.keys(counts).forEach(nat => {
         const countEl = document.querySelector(`.member-count[data-count-for="${nat}"]`);
         if (countEl) countEl.textContent = counts[nat];
     });
+
+    const countriesStat = document.getElementById('stat-countries');
+    if (countriesStat) countriesStat.textContent = uniqueCountries.size || 6;
 }
 
 const nationalityFlags = document.querySelectorAll('#nationalityFlags .flag');
@@ -1950,6 +1963,22 @@ function init() {
     updateNationalityCounts();
     initCommunityMap();
     initAnalyticsCharts();
+
+    // Download Report Logic
+    const downloadReportBtn = document.getElementById('downloadReportBtn');
+    if (downloadReportBtn) {
+        downloadReportBtn.addEventListener('click', () => {
+            const element = document.getElementById('analytics');
+            const opt = {
+                margin: 10,
+                filename: 'AFCODD_Analytics_Report.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().from(element).set(opt).save();
+        });
+    }
 
     // Emirates ID real-time formatting
     const emiratesIdField = document.getElementById('emiratesId');
