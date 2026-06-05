@@ -183,6 +183,7 @@ const langText = document.getElementById('langText');
 const mainHtml = document.getElementById('mainHtml');
 
 function setLanguage(lang) {
+    if (!mainHtml) return;
     mainHtml.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
     mainHtml.setAttribute('lang', lang);
     langText.textContent = lang === 'ar' ? 'English' : 'العربية';
@@ -907,9 +908,12 @@ function generateIdCard() {
 }
 
 // Preview Button Event
-document.getElementById('previewCardBtn').addEventListener('click', () => {
-    if (validateHiringStep(currentHiringStep)) generateIdCard();
-});
+const previewCardBtn = document.getElementById('previewCardBtn');
+if (previewCardBtn) {
+    previewCardBtn.addEventListener('click', () => {
+        if (validateHiringStep(currentHiringStep)) generateIdCard();
+    });
+}
 
 // Print Hiring Summary
 document.addEventListener('click', (e) => {
@@ -1607,6 +1611,20 @@ function closeSosModal() {
 if (closeSosModalBtn) closeSosModalBtn.onclick = closeSosModal;
 
 document.querySelector('.btn-danger-sos')?.addEventListener('click', (e) => {
+    // If admin is logged in, clicking the main SOS might trigger a test
+    if(document.body.classList.contains('admin-mode')) {
+        const feed = document.getElementById('activeSosFeed');
+        feed.innerHTML = `
+            <div class="sos-alert-item">
+                <strong style="color: var(--danger);">🚨 MEDICAL: Kwame Mensah</strong>
+                <p style="font-size: 10px; margin: 0;">Location: Al Rigga, Dubai | ID: AF-92831</p>
+                <div style="display:flex; gap:5px; margin-top:5px;">
+                    <button class="btn btn-primary" style="padding: 2px 8px; font-size: 9px;">Dispatch</button>
+                    <button class="btn btn-secondary" style="padding: 2px 8px; font-size: 9px;">Call NOK</button>
+                </div>
+            </div>
+        `;
+    }
     e.preventDefault();
     openSosModal();
 });
@@ -1837,6 +1855,8 @@ function updateBudgetUI() {
     }
 }
 
+init();
+
 /* PHOTO UPLOAD PREVIEW LOGIC */
 const photoDropZone = document.getElementById('photoDropZone');
 const photoInput = document.getElementById('memberPhoto');
@@ -2066,8 +2086,86 @@ function initCustomSelect(wrapperId, triggerId, listId, highlightId, nativeId, t
     });
 }
 
-window.addEventListener('click', () => {
-    document.querySelectorAll('.custom-select-wrapper').forEach(w => w.classList.remove('active'));
-});
+/* ======================================================
+ADMIN PORTAL LOGIC
+====================================================== */
+const loginForm = document.getElementById('adminLoginForm');
+if (loginForm) {
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const adminPass = document.getElementById('adminPass');
+        const loginOverlay = document.getElementById('adminLoginOverlay');
+        const loginError = document.getElementById('loginError');
+
+        if (!adminPass || !loginOverlay) return;
+
+        // Using a simple password for simulation: "AFCODD2026"
+        if (adminPass.value.trim() === "AFCODD2026") {
+            loginOverlay.style.opacity = '0';
+            setTimeout(() => {
+                loginOverlay.style.display = 'none';
+                document.body.classList.remove('login-locked');
+            }, 500);
+        } else {
+            if (loginError) loginError.style.display = 'block';
+            if (adminPass) adminPass.style.borderColor = 'var(--danger)';
+        }
+    });
+}
+
+const logoutBtn = document.getElementById('adminLogout');
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+        window.location.reload(); // Simple reload to re-lock
+    });
+}
+
+const tableSearch = document.getElementById('memberTableSearch');
+if (tableSearch) {
+    tableSearch.addEventListener('input', (e) => {
+        const filter = e.target.value.toLowerCase();
+        const rows = document.querySelectorAll('#membersTable tbody tr');
+        rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(filter) ? '' : 'none';
+        });
+    });
+}
+
+/* MEMBER TABLE SORTING */
+function sortAdminTable(n) {
+    const table = document.getElementById("membersTable");
+    let rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    switching = true;
+    dir = "asc"; 
+    while (switching) {
+        switching = false;
+        rows = table.rows;
+        for (i = 1; i < (rows.length - 1); i++) {
+            shouldSwitch = false;
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+            if (dir == "asc") {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    shouldSwitch = true; break;
+                }
+            } else if (dir == "desc") {
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                    shouldSwitch = true; break;
+                }
+            }
+        }
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchcount ++;      
+        } else {
+            if (switchcount == 0 && dir == "asc") {
+                dir = "desc";
+                switching = true;
+            }
+        }
+    }
+}
 
 init();

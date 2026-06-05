@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" id="mainHtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AFCODD Admin | Executive Control Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/logo.png?v=2">
+    <link rel="shortcut icon" type="image/png" href="assets/logo.png?v=2">
+    <link rel="apple-touch-icon" href="assets/logo.png?v=2">
+</head>
+<body class="admin-page login-locked">
+    <!-- Login Screen Overlay -->
+    <div id="adminLoginOverlay" class="admin-login-overlay">
+        <div class="login-box">
+            <img src="assets/logo.png" alt="AFCODD Logo">
+            <h3>Executive Access</h3>
+            <p>Please enter the admin credentials to continue</p>
+            <form id="adminLoginForm">
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="adminPass" placeholder="Access Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Unlock Portal</button>
+                <p id="loginError" style="color: var(--danger); font-size: 12px; margin-top: 10px; display: none;">Invalid access code.</p>
+            </form>
+            <div class="login-footer">
+                <a href="index.html">← Back to Public Site</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-layout" id="adminMainLayout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-brand">
+                <div class="brand-hex">
+                    <img src="assets/logo.png" alt="Logo">
+                </div>
+                <div class="brand-text">
+                    <span>AFCODD</span>
+                    <small>EXECUTIVE SUITE</small>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">MAIN MENU</div>
+                <a href="#" class="active" data-view="dashboard"><i class="fas fa-th-large"></i> <span>Dashboard</span></a>
+                <a href="#" data-view="members"><i class="fas fa-users-cog"></i> <span>Member Management</span></a>
+                <a href="#" data-view="sos"><i class="fas fa-shield-alt"></i> <span>SOS Response</span> <span class="nav-badge alert">1</span></a>
+                
+                <div class="nav-section">FINANCIALS</div>
+                <a href="#"><i class="fas fa-hand-holding-usd"></i> <span>Welfare Fund</span></a>
+                <a href="#"><i class="fas fa-chart-line"></i> <span>Audit Logs</span></a>
+                
+                <div class="nav-section">SYSTEM</div>
+                <a href="#"><i class="fas fa-briefcase"></i> <span>Job Moderation</span></a>
+                <a href="#"><i class="fas fa-cog"></i> <span>Settings</span></a>
+            </nav>
+            <div class="admin-sidebar-footer">
+                <button id="adminLogout" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main-content">
+            <header class="admin-header">
+                <div class="header-left">
+                    <h2>Executive Dashboard</h2>
+                    <p>Welcome back, Admin Lead</p>
+                </div>
+                <div class="header-right">
+                    <div class="admin-profile">
+                        <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Admin">
+                        <div class="profile-info">
+                            <strong>Kwame Mensah</strong>
+                            <span>Lead Admin</span>
+                        </div>
+                        <i class="fas fa-chevron-down" style="font-size: 10px; opacity: 0.5;"></i>
+                    </div>
+                </div>
+            </header>
+
+            <div class="admin-dashboard-grid">
+                <!-- CRM List -->
+                <div class="card admin-card">
+                    <div class="card-header-flex">
+                        <h4>Pending Approvals</h4>
+                        <span class="badge-count">2 New</span>
+                    </div>
+                    <div id="pendingMembersList" class="crm-list">
+                        <div class="crm-item">
+                            <div class="crm-info">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Avatar" class="crm-avatar">
+                                <div>
+                                    <div class="crm-name">Musa Cheni</div>
+                                    <div class="crm-profession">Registered Nurse • 🇺🇬</div>
+                                </div>
+                            </div>
+                            <div class="crm-actions">
+                                <button class="btn-icon approve"><i class="fas fa-check"></i></button>
+                                <button class="btn-icon reject"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="crm-item">
+                            <div class="crm-info">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Avatar" class="crm-avatar">
+                                <div>
+                                    <div class="crm-name">Zara Abadi</div>
+                                    <div class="crm-profession">Executive Chef • 🇰🇪</div>
+                                </div>
+                            </div>
+                            <div class="crm-actions">
+                                <button class="btn-icon approve"><i class="fas fa-check"></i></button>
+                                <button class="btn-icon reject"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-text-link">View All Applications</button>
+                </div>
+
+                <!-- SOS Alert Card -->
+                <div class="card admin-card" style="border-left: 4px solid var(--danger);">
+                    <h4><i class="fas fa-bell"></i> Active SOS Alerts</h4>
+                    <div id="activeSosFeed" style="margin-top: 20px;">
+                        <div class="sos-alert-item">
+                            <strong style="color: var(--danger);">🚨 MEDICAL: Kwame Mensah</strong>
+                            <p style="font-size: 10px; margin: 0;">Location: Al Rigga, Dubai | ID: AF-92831</p>
+                        </div>
+                        <p style="font-size: 12px; color: var(--gray); text-align: center;">1 Alert pending response.</p>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="card admin-card">
+                    <h4>Welfare Fund Audit</h4>
+                    <div class="stat-mini">
+                        <span style="font-size: 24px; font-weight: 800; color: var(--secondary);">42,500 AED</span>
+                        <p style="font-size: 12px; color: var(--gray);">85% of 50k Goal reached</p>
+                    </div>
+                    <button class="btn btn-secondary" style="width: 100%; margin-top: 15px;">Export Financials</button>
+                </div>
+            </div>
+
+            <!-- Member Management Section (New) -->
+            <div id="members-section" class="admin-section" style="margin-top: 40px;">
+                <div class="section-header">
+                    <h3>Member Directory Management</h3>
+                    <div class="table-controls">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="memberTableSearch" placeholder="Filter by name, ID or profession...">
+                        </div>
+                        <button class="btn btn-secondary"><i class="fas fa-filter"></i> Filters</button>
+                        <button class="btn btn-primary"><i class="fas fa-plus"></i> Add Member</button>
+                    </div>
+                </div>
+
+                <div class="card table-card">
+                    <table class="crm-table" id="membersTable">
+                        <thead>
+                            <tr>
+                                <th onclick="sortAdminTable(0)">Member ID <i class="fas fa-sort"></i></th>
+                                <th onclick="sortAdminTable(1)">Name <i class="fas fa-sort"></i></th>
+                                <th onclick="sortAdminTable(2)">Profession <i class="fas fa-sort"></i></th>
+                                <th onclick="sortAdminTable(3)">Status <i class="fas fa-sort"></i></th>
+                                <th onclick="sortAdminTable(4)">Joined Date <i class="fas fa-sort"></i></th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>AF-92831</td>
+                                <td><div class="cell-user"><img src="https://randomuser.me/api/portraits/men/32.jpg"> Kwame Mensah</div></td>
+                                <td>H&S Officer</td>
+                                <td><span class="status-badge verified">Verified</span></td>
+                                <td>12 Mar 2026</td>
+                                <td><button class="btn-icon"><i class="fas fa-ellipsis-v"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td>AF-10492</td>
+                                <td><div class="cell-user"><img src="https://randomuser.me/api/portraits/women/44.jpg"> Sarah Ahmed</div></td>
+                                <td>Operations Manager</td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td>15 Mar 2026</td>
+                                <td><button class="btn-icon"><i class="fas fa-ellipsis-v"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

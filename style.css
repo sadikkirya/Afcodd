@@ -129,9 +129,307 @@ body.light-mode .qatar-service-card {
     border: 1px solid #e2e8f0;
 }
 
+/* Admin Mode Highlights */
+body.admin-mode header {
+    border-bottom: 2px solid var(--gold);
+}
+
 /* Job Modal Specific Dark Mode Tweaks */
 #jobModalOverlay .application-modal {
     border: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+/* ======================================================
+ADMIN CRM STYLES
+====================================================== */
+
+.admin-card {
+    padding: 25px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.badge-count {
+    background: var(--primary);
+    color: var(--dark);
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+}
+
+.crm-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.crm-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px 15px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.crm-item:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: var(--primary);
+    transform: translateX(5px);
+}
+
+.crm-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.crm-avatar {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.crm-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+}
+
+.crm-profession {
+    font-size: 11px;
+    color: var(--gray);
+}
+
+.crm-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 12px;
+}
+
+.btn-icon.approve:hover {
+    background: var(--secondary);
+    color: var(--dark);
+    border-color: var(--secondary);
+}
+
+.btn-icon.reject:hover {
+    background: var(--danger);
+    color: white;
+    border-color: var(--danger);
+}
+
+.btn-text-link {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    padding: 0;
+    margin-top: 10px;
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
+.btn-text-link:hover {
+    opacity: 1;
+}
+
+/* ======================================================
+ADMIN LOGIN & SIDEBAR REVOLUTION
+====================================================== */
+.admin-page.login-locked .admin-layout { filter: blur(15px); pointer-events: none; }
+
+.admin-login-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    background: rgba(5, 11, 21, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    transition: 0.5s;
+}
+
+.login-box {
+    background: var(--card);
+    padding: 50px;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+.login-box img { width: 80px; margin-bottom: 20px; }
+
+.input-group {
+    position: relative;
+    margin: 25px 0;
+}
+
+.input-group i {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px 15px 15px 50px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    color: white;
+    font-size: 16px;
+}
+
+/* Sidebar Enhancements */
+.admin-sidebar {
+    width: 300px;
+    background: linear-gradient(to bottom, #0a1424, #050b15);
+    border-right: 1px solid rgba(255,255,255,0.05);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-hex {
+    width: 45px; height: 45px;
+    background: rgba(0, 217, 255, 0.1);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-right: 12px;
+}
+.brand-hex img { height: 30px; }
+.brand-text small { color: var(--gold); font-size: 9px; font-weight: 800; letter-spacing: 2px; }
+
+.nav-section {
+    font-size: 10px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.3);
+    margin: 30px 0 10px 20px;
+    letter-spacing: 1px;
+}
+
+.sidebar-nav a i { font-size: 18px; width: 25px; }
+
+.nav-badge.alert { background: var(--danger); }
+
+.admin-sidebar-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); }
+.logout-btn {
+    width: 100%; padding: 12px; background: rgba(255, 77, 77, 0.05);
+    border: 1px solid rgba(255, 77, 77, 0.2); border-radius: 12px;
+    color: var(--danger); cursor: pointer; transition: 0.3s;
+}
+.logout-btn:hover { background: var(--danger); color: white; }
+
+/* CRM Table Styling */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.table-controls { display: flex; gap: 15px; }
+.search-box { position: relative; }
+.search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); opacity: 0.5; }
+.search-box input {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    padding: 10px 15px 10px 40px; border-radius: 10px; color: white; width: 300px;
+}
+
+.table-card { padding: 0 !important; overflow: hidden; border-radius: 20px; }
+.crm-table { width: 100%; border-collapse: collapse; text-align: left; }
+.crm-table th {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 15px 20px;
+    font-size: 12px;
+    color: var(--gray);
+    font-weight: 600;
+    cursor: pointer;
+}
+.crm-table td { padding: 15px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); font-size: 13px; }
+.crm-table tr:last-child td { border: none; }
+.crm-table tr:hover { background: rgba(0, 217, 255, 0.02); }
+
+.cell-user { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+.cell-user img { width: 32px; height: 32px; border-radius: 8px; }
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+}
+.status-badge.verified { background: rgba(0, 255, 179, 0.1); color: var(--secondary); }
+.status-badge.pending { background: rgba(247, 195, 95, 0.1); color: var(--gold); }
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    position: static;
+    background: none;
+    backdrop-filter: none;
+    border: none;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.03);
+    padding: 8px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.admin-profile:hover { background: rgba(255,255,255,0.07); }
+
+.admin-profile img { width: 36px; height: 36px; border-radius: 50%; }
+.profile-info { display: flex; flex-direction: column; line-height: 1.2; }
+.profile-info span { font-size: 11px; color: var(--gray); }
+
+.admin-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
 }
 
 /* ======================================================
@@ -782,6 +1080,15 @@ NEW QATAR SERVICES SECTION
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
+}
+
+.sos-alert-item {
+    background: rgba(255, 77, 77, 0.1);
+    border-left: 4px solid var(--danger);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    animation: sosPulse 2s infinite;
 }
 
 /* ======================================================
