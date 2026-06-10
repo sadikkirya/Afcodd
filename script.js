@@ -939,6 +939,11 @@ function closeIdModal() {
 
 /* DOWNLOAD ID AS PDF */
 async function downloadIdAsPdf() {
+    if (typeof html2pdf === 'undefined') {
+        console.error("html2pdf library is not loaded.");
+        alert("The PDF generation library is currently unavailable.");
+        return;
+    }
     const container = document.getElementById('idCardContainer');
     const downloadBtn = document.getElementById('downloadIdPdfBtn') || document.getElementById('downloadIdBtn');
     if (!container || !downloadBtn) return;
@@ -983,6 +988,11 @@ async function downloadIdAsPdf() {
 
 /* DOWNLOAD ID AS IMAGE */
 async function downloadIdAsImage() {
+    if (typeof html2canvas === 'undefined') {
+        console.error("html2canvas library is not loaded.");
+        alert("The image generation library is currently unavailable.");
+        return;
+    }
     const container = document.getElementById('idCardContainer');
     const downloadBtn = document.getElementById('downloadIdBtn');
     if (!container || !downloadBtn) return;
@@ -1141,6 +1151,14 @@ function initCommunityMap() {
     const mapContainer = document.getElementById('map-display');
     if (!mapContainer) return;
 
+    if (typeof L === 'undefined') {
+        console.error("Leaflet.js library is not loaded. Map cannot be initialized.");
+        return;
+    }
+
+    // Prevent re-initialization error if the map already exists
+    if (mapContainer._leaflet_id) return;
+
     // Use Leaflet.js to initialize map
     const map = L.map('map-display').setView([24.8, 54.8], 9);
 
@@ -1227,6 +1245,11 @@ function initCommunityMap() {
 function initAnalyticsCharts() {
     const financialCtx = document.getElementById('financialChart');
     const statusCtx = document.getElementById('statusChart');
+
+    if (typeof Chart === 'undefined') {
+        console.error("Chart.js library is not loaded. Analytics cannot be initialized.");
+        return;
+    }
 
     if (financialCtx) {
         new Chart(financialCtx, {
@@ -1855,8 +1878,6 @@ function updateBudgetUI() {
     }
 }
 
-init();
-
 /* PHOTO UPLOAD PREVIEW LOGIC */
 const photoDropZone = document.getElementById('photoDropZone');
 const photoInput = document.getElementById('memberPhoto');
@@ -1956,7 +1977,10 @@ function handlePackageChange() {
 }
 
 // Initialize everything
+let isAppInitialized = false;
 function init() {
+    if (isAppInitialized) return;
+    isAppInitialized = true;
     initDrafts();
     const budgetSlider = document.getElementById('budgetRange');
     const packageSelect = document.getElementById('packageType');
